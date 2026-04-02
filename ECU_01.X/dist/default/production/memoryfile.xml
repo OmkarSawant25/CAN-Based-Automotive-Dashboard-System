@@ -3,15 +3,15 @@
   <executable name="dist/default/production\ECU_01.X.production.hex">
     <memory name="program">
       <units>bytes</units>
-      <length>32768</length>
-      <used>1831</used>
-      <free>30937</free>
+      <length>12289</length>
+      <used>3215</used>
+      <free>9074</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
       <length>1536</length>
-      <used>53</used>
-      <free>1483</free>
+      <used>91</used>
+      <free>1445</free>
     </memory>
   </executable>
 </project>

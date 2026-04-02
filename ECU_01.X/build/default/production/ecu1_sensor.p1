@@ -1257,8 +1257,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ecu1_sensor.c: 9: uint16_t adc_val;
 [v _adc_val `us ~T0 @X0 1 e ]
 "10
-[; ;ecu1_sensor.c: 10: unsigned char speed;
-[v _speed `uc ~T0 @X0 1 e ]
+[; ;ecu1_sensor.c: 10: uint16_t speed;
+[v _speed `us ~T0 @X0 1 e ]
 "12
 [; ;ecu1_sensor.c: 12: char speed_arr[3];
 [v _speed_arr `uc ~T0 @X0 -> 3 `i e ]
@@ -1340,26 +1340,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ecu1_sensor.c: 23:     adc_val = read_adc(0x04);
 [e = _adc_val ( _read_adc (1 -> -> 4 `i `uc ]
 "24
-[; ;ecu1_sensor.c: 24:     speed = (adc_val * 99) / 1023;
-[e = _speed -> / * -> _adc_val `ui -> -> 99 `i `ui -> -> 1023 `i `ui `uc ]
+[; ;ecu1_sensor.c: 24:     speed = adc_val / 10.23;
+[e = _speed -> / -> -> _adc_val `ui `d .10.23 `us ]
 "26
 [; ;ecu1_sensor.c: 26:     speed_arr[0] = (speed / 10) + '0';
-[e = *U + &U _speed_arr * -> -> -> 0 `i `ui `ux -> -> # *U &U _speed_arr `ui `ux -> + -> / -> _speed `i -> 10 `i `ui -> 48 `ui `uc ]
+[e = *U + &U _speed_arr * -> -> -> 0 `i `ui `ux -> -> # *U &U _speed_arr `ui `ux -> + / -> _speed `ui -> -> 10 `i `ui -> 48 `ui `uc ]
 "27
 [; ;ecu1_sensor.c: 27:     speed_arr[1] = (speed % 10) + '0';
-[e = *U + &U _speed_arr * -> -> -> 1 `i `ui `ux -> -> # *U &U _speed_arr `ui `ux -> + -> % -> _speed `i -> 10 `i `ui -> 48 `ui `uc ]
+[e = *U + &U _speed_arr * -> -> -> 1 `i `ui `ux -> -> # *U &U _speed_arr `ui `ux -> + % -> _speed `ui -> -> 10 `i `ui -> 48 `ui `uc ]
 "28
 [; ;ecu1_sensor.c: 28:     speed_arr[2] = '\0';
 [e = *U + &U _speed_arr * -> -> -> 2 `i `ui `ux -> -> # *U &U _speed_arr `ui `ux -> -> 0 `ui `uc ]
 "30
 [; ;ecu1_sensor.c: 30:     clcd_putch((speed / 10) + '0', (0xC0 + (0)));
-[e ( _clcd_putch (2 , -> + -> / -> _speed `i -> 10 `i `ui -> 48 `ui `uc -> + -> 192 `i -> 0 `i `uc ]
+[e ( _clcd_putch (2 , -> + / -> _speed `ui -> -> 10 `i `ui -> 48 `ui `uc -> + -> 192 `i -> 0 `i `uc ]
 "31
 [; ;ecu1_sensor.c: 31:     clcd_putch((speed % 10) + '0', (0xC0 + (1)));
-[e ( _clcd_putch (2 , -> + -> % -> _speed `i -> 10 `i `ui -> 48 `ui `uc -> + -> 192 `i -> 1 `i `uc ]
+[e ( _clcd_putch (2 , -> + % -> _speed `ui -> -> 10 `i `ui -> 48 `ui `uc -> + -> 192 `i -> 1 `i `uc ]
 "33
 [; ;ecu1_sensor.c: 33:     return speed;
-[e ) -> _speed `us ]
+[e ) _speed ]
 [e $UE 1088  ]
 "34
 [; ;ecu1_sensor.c: 34: }

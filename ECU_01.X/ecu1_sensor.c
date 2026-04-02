@@ -7,7 +7,7 @@
 #include "clcd.h"
 
 uint16_t adc_val;
-unsigned char speed;
+uint16_t speed;
 
 char speed_arr[3];
 char gear_arr[3];
@@ -21,7 +21,7 @@ char gear[9][3] = {"ON", "GN", "G1", "G2", "G3", "G4", "G5", "GR", "C "};
 uint16_t get_speed() {
     // Implement the speed function
     adc_val = read_adc(CHANNEL4);
-    speed = (adc_val * 99) / 1023;
+    speed = adc_val / 10.23;
 
     speed_arr[0] = (speed / 10) + '0';
     speed_arr[1] = (speed % 10) + '0';
