@@ -6,4 +6,5 @@ adc.h  \
 can.h  \
 msg_id.h  \
 uart.h  \
-ssd_display.h 
+ssd_display.h  \
+clcd.h 

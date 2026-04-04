@@ -18069,6 +18069,13 @@ unsigned char getche(void);
 void init_ssd_control(void);
 void display(unsigned char data[]);
 # 14 "ecu2_sensor.c" 2
+# 1 "./clcd.h" 1
+# 34 "./clcd.h"
+void init_clcd(void);
+void clcd_print(const unsigned char *data, unsigned char addr);
+void clcd_putch(const unsigned char data, unsigned char addr);
+void clcd_write(unsigned char bit_values, unsigned char control_bit);
+# 15 "ecu2_sensor.c" 2
 
 
 uint16_t adc_val;
@@ -18078,6 +18085,10 @@ char rpm_arr[5];
 char digit[] = {0xE7, 0x21, 0xCB, 0x6B, 0x2D, 0x6E, 0xEE, 0x23, 0xEF, 0x6F};
 char ssd[4];
 char key;
+
+unsigned char rpm_rec[5];
+unsigned char rpm_len;
+unsigned short rpm_msg_id;
 
 uint16_t get_rpm() {
 
@@ -18090,13 +18101,19 @@ uint16_t get_rpm() {
     rpm_arr[2] = ((rpm / 10) % 10) + '0';
     rpm_arr[3] = (rpm % 10) + '0';
     rpm_arr[4] = '\0';
+# 48 "ecu2_sensor.c"
+    can_transmit(0x30, rpm_arr, 5);
+    _delay((unsigned long)((80)*(20000000/4000.0)));
+    can_receive(&rpm_msg_id, rpm_rec, &rpm_len);
+    rpm_rec[rpm_len] = '\0';
 
-    ssd[0] = digit[rpm / 1000];
-    ssd[1] = digit[(rpm / 100) % 10];
-    ssd[2] = digit[(rpm / 10) % 10];
-    ssd[3] = digit[(rpm % 10)];
+    ssd[0] = digit[rpm_rec[0] - '0'];
+    ssd[1] = digit[rpm_rec[1] - '0'];
+    ssd[2] = digit[rpm_rec[2] - '0'];
+    ssd[3] = digit[rpm_rec[3] - '0'];
 
-    display(ssd);
+    for (int i = 0; i < 10; i++)
+        display(ssd);
     return 0;
 }
 
@@ -18114,15 +18131,15 @@ IndicatorStatus process_indicator() {
         PORTBbits.RB1 = 1;
         PORTBbits.RB6 = 0;
         PORTBbits.RB7 = 0;
-    } else if (key == 0x0B) {
-        PORTBbits.RB0 = 0;
-        PORTBbits.RB1 = 0;
-        PORTBbits.RB6 = 1;
-        PORTBbits.RB7 = 1;
     } else if (key == 0x0D) {
         PORTBbits.RB0 = 0;
         PORTBbits.RB1 = 0;
         PORTBbits.RB6 = 0;
         PORTBbits.RB7 = 0;
+    } else if (key == 0x0B) {
+        PORTBbits.RB0 = 0;
+        PORTBbits.RB1 = 0;
+        PORTBbits.RB6 = 1;
+        PORTBbits.RB7 = 1;
     }
 }

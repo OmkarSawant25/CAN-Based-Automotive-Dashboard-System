@@ -33,6 +33,37 @@ Version 4.0 HI-TECH Software Intermediate Code
 "23529
 [; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 23529: extern volatile unsigned char RXB0CON __attribute__((address(0xF60)));
 [v _RXB0CON `Vuc ~T0 @X0 0 e@3936 ]
+"23535
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 23535:     struct {
+[s S742 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S742 . FILHIT0 JTOFF_FILHIT1 RXB0DBEN_FILHIT2 RXRTRRO_FILHIT3 FILHIT4 RXM0_RTRRO RXM1 RXFUL ]
+"23545
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 23545:     struct {
+[s S743 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S743 . . JTOFF RXB0DBEN RXRTRRO . RXM0 ]
+"23553
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 23553:     struct {
+[s S744 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S744 . . FILHIT1 FILHIT2 FILHIT3 . RTRRO ]
+"23561
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 23561:     struct {
+[s S745 :2 `uc 1 :1 `uc 1 ]
+[n S745 . . RXBODBEN ]
+"23565
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 23565:     struct {
+[s S746 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S746 . RXB0FILHIT0 RXB0FILHIT1 RXB0FILHIT2 RXB0FILHIT3 RXB0FILHIT4 RXB0M0 RXB0M1 RXB0FUL ]
+"23575
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 23575:     struct {
+[s S747 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S747 . . RXB0RTRR0 . RXB0RTRRO ]
+"23534
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 23534: typedef union {
+[u S741 `S742 1 `S743 1 `S744 1 `S745 1 `S746 1 `S747 1 ]
+[n S741 . . . . . . . ]
+"23582
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 23582: extern volatile RXB0CONbits_t RXB0CONbits __attribute__((address(0xF60)));
+[v _RXB0CONbits `VS741 ~T0 @X0 0 e@3936 ]
 "23834
 [; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 23834: extern volatile unsigned char RXB0SIDL __attribute__((address(0xF62)));
 [v _RXB0SIDL `Vuc ~T0 @X0 0 e@3938 ]
@@ -1352,58 +1383,64 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;can.c: 39:     RXFCON0 = 0x00;
 [e = _RXFCON0 -> -> 0 `i `uc ]
 "41
-[; ;can.c: 41:     { CANCON &= 0x1F; CANCON |= e_can_op_mode_normal; };
+[; ;can.c: 41:     { CANCON &= 0x1F; CANCON |= e_can_op_mode_loop; };
 {
 [e =& _CANCON -> -> 31 `i `Vuc ]
-[e =| _CANCON -> -> . `E10499 0 `i `Vuc ]
+[e =| _CANCON -> -> . `E10499 1 `i `Vuc ]
 }
 "44
 [; ;can.c: 44:     RXB0CON = 0x00;
 [e = _RXB0CON -> -> 0 `i `uc ]
-"45
-[; ;can.c: 45: }
+"46
+[; ;can.c: 46:     RXB0CONbits.RXM0 = 1;
+[e = . . _RXB0CONbits 1 5 -> -> 1 `i `uc ]
+"47
+[; ;can.c: 47:     RXB0CONbits.RXM1 = 1;
+[e = . . _RXB0CONbits 0 6 -> -> 1 `i `uc ]
+"48
+[; ;can.c: 48: }
 [e :UE 1088 ]
 }
-"47
-[; ;can.c: 47: static uint16_t get_msg_id_std(void) {
+"50
+[; ;can.c: 50: static uint16_t get_msg_id_std(void) {
 [v _get_msg_id_std `(us ~T0 @X0 1 sf ]
 {
 [e :U _get_msg_id_std ]
 [f ]
-"48
-[; ;can.c: 48:     uint16_t id = 0;
+"51
+[; ;can.c: 51:     uint16_t id = 0;
 [v _id `us ~T0 @X0 1 a ]
 [e = _id -> -> 0 `i `us ]
-"49
-[; ;can.c: 49:     id = ((RXB0SIDL >> 5) & 0x7) | (RXB0SIDH << 3);
+"52
+[; ;can.c: 52:     id = ((RXB0SIDL >> 5) & 0x7) | (RXB0SIDH << 3);
 [e = _id -> | & >> -> _RXB0SIDL `i -> 5 `i -> 7 `i << -> _RXB0SIDH `i -> 3 `i `us ]
-"50
-[; ;can.c: 50:     return id;
+"53
+[; ;can.c: 53:     return id;
 [e ) _id ]
 [e $UE 1092  ]
-"51
-[; ;can.c: 51: }
+"54
+[; ;can.c: 54: }
 [e :UE 1092 ]
 }
-"54
-[; ;can.c: 54: static void set_msg_id_std(unsigned int id) {
+"57
+[; ;can.c: 57: static void set_msg_id_std(unsigned int id) {
 [v _set_msg_id_std `(v ~T0 @X0 1 sf1`ui ]
 {
 [e :U _set_msg_id_std ]
 [v _id `ui ~T0 @X0 1 r1 ]
 [f ]
-"55
-[; ;can.c: 55:     TXB0SIDL = (id & 0x7) << 5;
+"58
+[; ;can.c: 58:     TXB0SIDL = (id & 0x7) << 5;
 [e = _TXB0SIDL -> << & _id -> -> 7 `i `ui -> 5 `i `uc ]
-"56
-[; ;can.c: 56:     TXB0SIDH = (id >> 3);
+"59
+[; ;can.c: 59:     TXB0SIDH = (id >> 3);
 [e = _TXB0SIDH -> >> _id -> 3 `i `uc ]
-"57
-[; ;can.c: 57: }
+"60
+[; ;can.c: 60: }
 [e :UE 1093 ]
 }
-"61
-[; ;can.c: 61: void can_transmit(uint16_t msg_id, const uint8_t *data, uint8_t len) {
+"64
+[; ;can.c: 64: void can_transmit(uint16_t msg_id, const uint8_t *data, uint8_t len) {
 [v _can_transmit `(v ~T0 @X0 1 ef3`us`*Cuc`uc ]
 {
 [e :U _can_transmit ]
@@ -1411,52 +1448,52 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _data `*Cuc ~T0 @X0 1 r2 ]
 [v _len `uc ~T0 @X0 1 r3 ]
 [f ]
-"62
-[; ;can.c: 62:     uint8_t *ptr;
+"65
+[; ;can.c: 65:     uint8_t *ptr;
 [v _ptr `*uc ~T0 @X0 1 a ]
-"63
-[; ;can.c: 63:     TXB0EIDH = 0x00;
+"66
+[; ;can.c: 66:     TXB0EIDH = 0x00;
 [e = _TXB0EIDH -> -> 0 `i `uc ]
-"64
-[; ;can.c: 64:     TXB0EIDL = 0x00;
-[e = _TXB0EIDL -> -> 0 `i `uc ]
 "67
-[; ;can.c: 67:     set_msg_id_std(msg_id);
-[e ( _set_msg_id_std (1 -> _msg_id `ui ]
+[; ;can.c: 67:     TXB0EIDL = 0x00;
+[e = _TXB0EIDL -> -> 0 `i `uc ]
 "70
-[; ;can.c: 70:     TXB0DLC = len;
+[; ;can.c: 70:     set_msg_id_std(msg_id);
+[e ( _set_msg_id_std (1 -> _msg_id `ui ]
+"73
+[; ;can.c: 73:     TXB0DLC = len;
 [e = _TXB0DLC _len ]
-"75
-[; ;can.c: 75:     ptr = (uint8_t *) & TXB0D0;
+"78
+[; ;can.c: 78:     ptr = (uint8_t *) & TXB0D0;
 [e = _ptr &U _TXB0D0 ]
-"76
-[; ;can.c: 76:     for (int i = 0; i < len; i++) {
+"79
+[; ;can.c: 79:     for (int i = 0; i < len; i++) {
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
 [e $U 1098  ]
 [e :U 1095 ]
 {
-"77
-[; ;can.c: 77:         ptr[i] = data[i];
+"80
+[; ;can.c: 80:         ptr[i] = data[i];
 [e = *U + _ptr * -> _i `x -> -> # *U _ptr `i `x *U + _data * -> _i `x -> -> # *U _data `i `x ]
-"78
-[; ;can.c: 78:     }
+"81
+[; ;can.c: 81:     }
 }
 [e ++ _i -> 1 `i ]
 [e :U 1098 ]
 [e $ < _i -> _len `i 1095  ]
 [e :U 1096 ]
 }
-"79
-[; ;can.c: 79:     TXB0REQ = 1;
+"82
+[; ;can.c: 82:     TXB0REQ = 1;
 [e = _TXB0REQ -> -> 1 `i `b ]
-"80
-[; ;can.c: 80: }
+"83
+[; ;can.c: 83: }
 [e :UE 1094 ]
 }
-"86
-[; ;can.c: 86: void can_receive(uint16_t *msg_id, uint8_t *data, uint8_t *len) {
+"89
+[; ;can.c: 89: void can_receive(uint16_t *msg_id, uint8_t *data, uint8_t *len) {
 [v _can_receive `(v ~T0 @X0 1 ef3`*us`*uc`*uc ]
 {
 [e :U _can_receive ]
@@ -1464,55 +1501,55 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _data `*uc ~T0 @X0 1 r2 ]
 [v _len `*uc ~T0 @X0 1 r3 ]
 [f ]
-"87
-[; ;can.c: 87:     uint8_t *ptr;
+"90
+[; ;can.c: 90:     uint8_t *ptr;
 [v _ptr `*uc ~T0 @X0 1 a ]
-"89
-[; ;can.c: 89:     if (RXB0FUL) {
+"92
+[; ;can.c: 92:     if (RXB0FUL) {
 [e $ ! _RXB0FUL 1100  ]
 {
-"91
-[; ;can.c: 91:         *msg_id = get_msg_id_std();
+"94
+[; ;can.c: 94:         *msg_id = get_msg_id_std();
 [e = *U _msg_id ( _get_msg_id_std ..  ]
-"93
-[; ;can.c: 93:         *len = RXB0DLC;
+"96
+[; ;can.c: 96:         *len = RXB0DLC;
 [e = *U _len _RXB0DLC ]
-"95
-[; ;can.c: 95:         ptr = (uint8_t *) & RXB0D0;
+"98
+[; ;can.c: 98:         ptr = (uint8_t *) & RXB0D0;
 [e = _ptr &U _RXB0D0 ]
-"97
-[; ;can.c: 97:         for (int i = 0; i < *len; i++) {
+"100
+[; ;can.c: 100:         for (int i = 0; i < *len; i++) {
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
 [e $U 1104  ]
 [e :U 1101 ]
 {
-"98
-[; ;can.c: 98:             data[i] = ptr[i];
+"101
+[; ;can.c: 101:             data[i] = ptr[i];
 [e = *U + _data * -> _i `x -> -> # *U _data `i `x *U + _ptr * -> _i `x -> -> # *U _ptr `i `x ]
-"99
-[; ;can.c: 99:         }
+"102
+[; ;can.c: 102:         }
 }
 [e ++ _i -> 1 `i ]
 [e :U 1104 ]
 [e $ < _i -> *U _len `i 1101  ]
 [e :U 1102 ]
 }
-"101
-[; ;can.c: 101:         RXB0FUL = 0;
+"104
+[; ;can.c: 104:         RXB0FUL = 0;
 [e = _RXB0FUL -> -> 0 `i `b ]
-"102
-[; ;can.c: 102:         RXB0IF = 0;
+"105
+[; ;can.c: 105:         RXB0IF = 0;
 [e = _RXB0IF -> -> 0 `i `b ]
-"103
-[; ;can.c: 103:     }
+"106
+[; ;can.c: 106:     }
 }
 [e :U 1100 ]
-"106
-[; ;can.c: 106:     *len = 0;
+"109
+[; ;can.c: 109:     *len = 0;
 [e = *U _len -> -> 0 `i `uc ]
-"107
-[; ;can.c: 107: }
+"110
+[; ;can.c: 110: }
 [e :UE 1099 ]
 }

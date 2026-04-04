@@ -15,6 +15,7 @@ static void init_config(void) {
     init_ssd_control();
     init_led();
     init_digital_keypad();
+    init_can();
 }
 
 int main() {

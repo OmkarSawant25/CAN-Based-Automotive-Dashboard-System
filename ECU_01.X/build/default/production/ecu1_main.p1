@@ -8,8 +8,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "34 ./clcd.h
 [; ;./clcd.h: 34: void init_clcd(void);
 [v _init_clcd `(v ~T0 @X0 0 ef ]
+"38 ./can.h
+[; ;./can.h: 38: void init_can(void);
+[v _init_can `(v ~T0 @X0 0 ef ]
 [p mainexit ]
-"35
+"35 ./clcd.h
 [; ;./clcd.h: 35: void clcd_print(const unsigned char *data, unsigned char addr);
 [v _clcd_print `(v ~T0 @X0 0 ef2`*Cuc`uc ]
 "20 ./ecu1_sensor.h
@@ -1273,47 +1276,50 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ecu1_main.c: 12:     init_clcd();
 [e ( _init_clcd ..  ]
 "13
-[; ;ecu1_main.c: 13: }
+[; ;ecu1_main.c: 13:     init_can();
+[e ( _init_can ..  ]
+"14
+[; ;ecu1_main.c: 14: }
 [e :UE 1088 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"15
-[; ;ecu1_main.c: 15: int main(void) {
+"16
+[; ;ecu1_main.c: 16: int main(void) {
 [v _main `(i ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"16
-[; ;ecu1_main.c: 16:     init_config();
+"17
+[; ;ecu1_main.c: 17:     init_config();
 [e ( _init_config ..  ]
-"18
-[; ;ecu1_main.c: 18:     while (1) {
+"19
+[; ;ecu1_main.c: 19:     while (1) {
 [e :U 1091 ]
 {
-"19
-[; ;ecu1_main.c: 19:         clcd_print("SPEED   ", (0x80 + (0)));
-[e ( _clcd_print (2 , :s 1C -> + -> 128 `i -> 0 `i `uc ]
 "20
-[; ;ecu1_main.c: 20:         clcd_print("GEAR    ", (0x80 + (8)));
+[; ;ecu1_main.c: 20:         clcd_print("SPEED   ", (0x80 + (0)));
+[e ( _clcd_print (2 , :s 1C -> + -> 128 `i -> 0 `i `uc ]
+"21
+[; ;ecu1_main.c: 21:         clcd_print("GEAR    ", (0x80 + (8)));
 [e ( _clcd_print (2 , :s 2C -> + -> 128 `i -> 8 `i `uc ]
-"22
-[; ;ecu1_main.c: 22:         get_speed();
-[e ( _get_speed ..  ]
 "23
-[; ;ecu1_main.c: 23:         get_gear_pos();
-[e ( _get_gear_pos ..  ]
+[; ;ecu1_main.c: 23:         get_speed();
+[e ( _get_speed ..  ]
 "24
-[; ;ecu1_main.c: 24:     }
+[; ;ecu1_main.c: 24:         get_gear_pos();
+[e ( _get_gear_pos ..  ]
+"25
+[; ;ecu1_main.c: 25:     }
 }
 [e :U 1090 ]
 [e $U 1091  ]
 [e :U 1092 ]
-"26
-[; ;ecu1_main.c: 26:     return 0;
+"27
+[; ;ecu1_main.c: 27:     return 0;
 [e ) -> 0 `i ]
 [e $UE 1089  ]
-"27
-[; ;ecu1_main.c: 27: }
+"28
+[; ;ecu1_main.c: 28: }
 [e :UE 1089 ]
 }
 [a 1C 83 80 69 69 68 32 32 32 0 ]

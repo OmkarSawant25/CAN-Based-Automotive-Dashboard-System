@@ -18050,10 +18050,13 @@ void init_can(void) {
 
     RXFCON0 = 0x00;
 
-    { CANCON &= 0x1F; CANCON |= e_can_op_mode_normal; };
+    { CANCON &= 0x1F; CANCON |= e_can_op_mode_loop; };
 
 
     RXB0CON = 0x00;
+
+    RXB0CONbits.RXM0 = 1;
+    RXB0CONbits.RXM1 = 1;
 }
 
 static uint16_t get_msg_id_std(void) {

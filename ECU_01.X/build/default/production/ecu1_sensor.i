@@ -18070,26 +18070,50 @@ void clcd_write(unsigned char bit_values, unsigned char control_bit);
 uint16_t adc_val;
 uint16_t speed;
 
-char speed_arr[3];
-char gear_arr[3];
+uint8_t speed_arr[3];
+uint8_t gear_arr[3];
+
 char key;
 char value;
 
+unsigned char speed_rec[3];
+unsigned char speed_len;
+unsigned short speed_msg_id;
+
+unsigned char gear_rec[3];
+unsigned char gear_len;
+unsigned short gear_msg_id;
+
 static char index = 0;
 
-char gear[9][3] = {"ON", "GN", "G1", "G2", "G3", "G4", "G5", "GR", "C "};
+char gear[9][3] = {"ON", "GN", "G1", "G2", "G3", "G4", "G5", "GR", "CL"};
 
 uint16_t get_speed() {
 
+
     adc_val = read_adc(0x04);
     speed = adc_val / 10.23;
+
 
     speed_arr[0] = (speed / 10) + '0';
     speed_arr[1] = (speed % 10) + '0';
     speed_arr[2] = '\0';
 
-    clcd_putch((speed / 10) + '0', (0xC0 + (0)));
-    clcd_putch((speed % 10) + '0', (0xC0 + (1)));
+
+    clcd_putch(speed_arr[0], (0xC0 + (5)));
+    clcd_putch(speed_arr[1], (0xC0 + (6)));
+
+
+    can_transmit(0x10, speed_arr, 2);
+    _delay((unsigned long)((80)*(20000000/4000.0)));
+
+
+    can_receive(&speed_msg_id, speed_rec, &speed_len);
+    speed_rec[2] = '\0';
+
+    clcd_print(speed_rec, (0xC0 + (0)));
+
+
 
     return speed;
 }
@@ -18112,10 +18136,26 @@ unsigned char get_gear_pos() {
         index = 8;
     }
 
+
     gear_arr[0] = gear[index][0];
     gear_arr[1] = gear[index][1];
     gear_arr[2] = '\0';
 
-    clcd_print(gear[index], (0xC0 + (8)));
+
+    clcd_print(gear_arr, (0xC0 + (8)));
+
+
+    can_transmit(0x20, gear_arr, 2);
+    _delay((unsigned long)((80)*(20000000/4000.0)));
+
+
+    can_receive(&gear_msg_id, gear_rec, &gear_len);
+    gear_rec[2] = '\0';
+
+
+    clcd_print(gear_rec, (0xC0 + (12)));
+
+
+
     return 0;
 }

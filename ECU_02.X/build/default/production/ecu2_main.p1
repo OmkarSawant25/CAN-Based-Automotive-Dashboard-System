@@ -11,12 +11,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "17 ./digital_keypad.h
 [; ;./digital_keypad.h: 17: void init_digital_keypad(void);
 [v _init_digital_keypad `(v ~T0 @X0 0 ef ]
+"38 ./can.h
+[; ;./can.h: 38: void init_can(void);
+[v _init_can `(v ~T0 @X0 0 ef ]
 [p mainexit ]
 "34 ./ecu2_sensor.h
 [; ;./ecu2_sensor.h: 34: uint16_t get_rpm();
 [v _get_rpm `(us ~T0 @X0 0 e? ]
-"26 ecu2_main.c
-[; ;ecu2_main.c: 26:         process_indicator();
+"27 ecu2_main.c
+[; ;ecu2_main.c: 27:         process_indicator();
 [c E10495 0 1 2 .. ]
 [n E10495 . e_ind_off e_ind_left e_ind_right  ]
 "36 ./ecu2_sensor.h
@@ -1292,58 +1295,61 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ecu2_main.c: 17:     init_digital_keypad();
 [e ( _init_digital_keypad ..  ]
 "18
-[; ;ecu2_main.c: 18: }
+[; ;ecu2_main.c: 18:     init_can();
+[e ( _init_can ..  ]
+"19
+[; ;ecu2_main.c: 19: }
 [e :UE 1088 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"20
-[; ;ecu2_main.c: 20: int main() {
+"21
+[; ;ecu2_main.c: 21: int main() {
 [v _main `(i ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"22
-[; ;ecu2_main.c: 22:     init_config();
+"23
+[; ;ecu2_main.c: 23:     init_config();
 [e ( _init_config ..  ]
-"24
-[; ;ecu2_main.c: 24:     while (1) {
+"25
+[; ;ecu2_main.c: 25:     while (1) {
 [e :U 1091 ]
 {
-"25
-[; ;ecu2_main.c: 25:         get_rpm();
-[e ( _get_rpm ..  ]
 "26
-[; ;ecu2_main.c: 26:         process_indicator();
-[e ( _process_indicator ..  ]
+[; ;ecu2_main.c: 26:         get_rpm();
+[e ( _get_rpm ..  ]
 "27
-[; ;ecu2_main.c: 27:     }
+[; ;ecu2_main.c: 27:         process_indicator();
+[e ( _process_indicator ..  ]
+"28
+[; ;ecu2_main.c: 28:     }
 }
 [e :U 1090 ]
 [e $U 1091  ]
 [e :U 1092 ]
-"28
-[; ;ecu2_main.c: 28: }
+"29
+[; ;ecu2_main.c: 29: }
 [e :UE 1089 ]
 }
-"30
-[; ;ecu2_main.c: 30: void init_led() {
+"31
+[; ;ecu2_main.c: 31: void init_led() {
 [v _init_led `(v ~T0 @X0 1 ef ]
 {
 [e :U _init_led ]
 [f ]
-"31
-[; ;ecu2_main.c: 31:     TRISB0 = 0;
-[e = _TRISB0 -> -> 0 `i `b ]
 "32
-[; ;ecu2_main.c: 32:     TRISB1 = 0;
-[e = _TRISB1 -> -> 0 `i `b ]
+[; ;ecu2_main.c: 32:     TRISB0 = 0;
+[e = _TRISB0 -> -> 0 `i `b ]
 "33
-[; ;ecu2_main.c: 33:     TRISB6 = 0;
-[e = _TRISB6 -> -> 0 `i `b ]
+[; ;ecu2_main.c: 33:     TRISB1 = 0;
+[e = _TRISB1 -> -> 0 `i `b ]
 "34
-[; ;ecu2_main.c: 34:     TRISB7 = 0;
-[e = _TRISB7 -> -> 0 `i `b ]
+[; ;ecu2_main.c: 34:     TRISB6 = 0;
+[e = _TRISB6 -> -> 0 `i `b ]
 "35
-[; ;ecu2_main.c: 35: }
+[; ;ecu2_main.c: 35:     TRISB7 = 0;
+[e = _TRISB7 -> -> 0 `i `b ]
+"36
+[; ;ecu2_main.c: 36: }
 [e :UE 1093 ]
 }

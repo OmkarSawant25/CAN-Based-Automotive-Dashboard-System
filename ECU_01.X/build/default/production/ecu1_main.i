@@ -18074,6 +18074,7 @@ static void init_config(void) {
     init_adc();
     init_matrix_keypad();
     init_clcd();
+    init_can();
 }
 
 int main(void) {

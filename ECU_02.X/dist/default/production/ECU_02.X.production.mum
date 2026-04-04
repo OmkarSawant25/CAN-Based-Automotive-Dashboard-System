@@ -1,7 +1,7 @@
 
 18F4580 Memory Summary:
-    Program space        used   F3Ah (  3898) of  3001h bytes   ( 31.7%)
-    Data space           used    64h (   100) of   600h bytes   (  6.5%)
+    Program space        used  1100h (  4352) of  3001h bytes   ( 35.4%)
+    Data space           used    70h (   112) of   600h bytes   (  7.3%)
     Configuration bits   used     7h (     7) of     7h words   (100.0%)
     EEPROM space         used     0h (     0) of   100h bytes   (  0.0%)
     ID Location space    used     8h (     8) of     8h bytes   (100.0%)

@@ -9,13 +9,13 @@ e_can_op_mode_normal 0
 e_can_op_mode_loop 64
 e_can_op_mode_config 128
 ]
-"26 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_main.c
+"27 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_main.c
 [e E10495 . `uc
 e_ind_off 0
 e_ind_left 1
 e_ind_right 2
 ]
-"49 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_sensor.c
+"67 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_sensor.c
 [e E10483 . `uc
 e_ind_off 0
 e_ind_left 1
@@ -89,10 +89,16 @@ e_ind_right 2
 [v ___omul __omul `(uo  1 e 8 0 ]
 "10 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\xxtofl.c
 [v ___xxtofl __xxtofl `(d  1 e 4 0 ]
-"47 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\can.c
+"15 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\can.c
+[v _init_can init_can `(v  1 e 1 0 ]
+"50
 [v _get_msg_id_std get_msg_id_std `(us  1 s 2 get_msg_id_std ]
-"54
+"57
 [v _set_msg_id_std set_msg_id_std `(v  1 s 1 set_msg_id_std ]
+"64
+[v _can_transmit can_transmit `(v  1 e 1 0 ]
+"89
+[v _can_receive can_receive `(v  1 e 1 0 ]
 "4 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\clcd.c
 [v _clcd_write clcd_write `(v  1 e 1 0 ]
 "4 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\digital_keypad.c
@@ -101,13 +107,13 @@ e_ind_right 2
 [v _read_digital_keypad read_digital_keypad `(uc  1 e 1 0 ]
 "13 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_main.c
 [v _init_config init_config `(v  1 s 1 init_config ]
-"20
+"21
 [v _main main `(i  1 e 2 0 ]
-"30
+"31
 [v _init_led init_led `(v  1 e 1 0 ]
-"24 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_sensor.c
+"29 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_sensor.c
 [v _get_rpm get_rpm `(us  1 e 2 0 ]
-"49
+"67
 [v _process_indicator process_indicator `(E10495  1 e 1 0 ]
 "12 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ssd_display.c
 [v _init_ssd_control init_ssd_control `(v  1 e 1 0 ]
@@ -133,6 +139,49 @@ e_ind_right 2
 [v _TXB0D0 TXB0D0 `VEuc  1 e 1 @3910 ]
 "23529
 [v _RXB0CON RXB0CON `VEuc  1 e 1 @3936 ]
+[s S57 . 1 `uc 1 FILHIT0 1 0 :1:0 
+`uc 1 JTOFF_FILHIT1 1 0 :1:1 
+`uc 1 RXB0DBEN_FILHIT2 1 0 :1:2 
+`uc 1 RXRTRRO_FILHIT3 1 0 :1:3 
+`uc 1 FILHIT4 1 0 :1:4 
+`uc 1 RXM0_RTRRO 1 0 :1:5 
+`uc 1 RXM1 1 0 :1:6 
+`uc 1 RXFUL 1 0 :1:7 
+]
+"23582
+[s S66 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 JTOFF 1 0 :1:1 
+`uc 1 RXB0DBEN 1 0 :1:2 
+`uc 1 RXRTRRO 1 0 :1:3 
+`uc 1 . 1 0 :1:4 
+`uc 1 RXM0 1 0 :1:5 
+]
+[s S73 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 FILHIT1 1 0 :1:1 
+`uc 1 FILHIT2 1 0 :1:2 
+`uc 1 FILHIT3 1 0 :1:3 
+`uc 1 . 1 0 :1:4 
+`uc 1 RTRRO 1 0 :1:5 
+]
+[s S80 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 RXBODBEN 1 0 :1:2 
+]
+[s S83 . 1 `uc 1 RXB0FILHIT0 1 0 :1:0 
+`uc 1 RXB0FILHIT1 1 0 :1:1 
+`uc 1 RXB0FILHIT2 1 0 :1:2 
+`uc 1 RXB0FILHIT3 1 0 :1:3 
+`uc 1 RXB0FILHIT4 1 0 :1:4 
+`uc 1 RXB0M0 1 0 :1:5 
+`uc 1 RXB0M1 1 0 :1:6 
+`uc 1 RXB0FUL 1 0 :1:7 
+]
+[s S92 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 RXB0RTRR0 1 0 :1:3 
+`uc 1 . 1 0 :1:4 
+`uc 1 RXB0RTRRO 1 0 :1:5 
+]
+[u S97 . 1 `S57 1 . 1 0 `S66 1 . 1 0 `S73 1 . 1 0 `S80 1 . 1 0 `S83 1 . 1 0 `S92 1 . 1 0 ]
+[v _RXB0CONbits RXB0CONbits `VES97  1 e 1 @3936 ]
 "23722
 [v _RXB0SIDH RXB0SIDH `VEuc  1 e 1 @3937 ]
 "23834
@@ -157,7 +206,7 @@ e_ind_right 2
 [v _PORTA PORTA `VEuc  1 e 1 @3968 ]
 "25715
 [v _PORTB PORTB `VEuc  1 e 1 @3969 ]
-[s S162 . 1 `uc 1 RB0 1 0 :1:0 
+[s S264 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -167,7 +216,7 @@ e_ind_right 2
 `uc 1 RB7 1 0 :1:7 
 ]
 "25759
-[s S171 . 1 `uc 1 INT0 1 0 :1:0 
+[s S273 . 1 `uc 1 INT0 1 0 :1:0 
 `uc 1 INT1 1 0 :1:1 
 `uc 1 INT2 1 0 :1:2 
 `uc 1 CANRX 1 0 :1:3 
@@ -176,7 +225,7 @@ e_ind_right 2
 `uc 1 KBI2 1 0 :1:6 
 `uc 1 KBI3 1 0 :1:7 
 ]
-[s S180 . 1 `uc 1 AN10 1 0 :1:0 
+[s S282 . 1 `uc 1 AN10 1 0 :1:0 
 `uc 1 AN8 1 0 :1:1 
 `uc 1 CANTX 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -185,13 +234,13 @@ e_ind_right 2
 `uc 1 PGC 1 0 :1:6 
 `uc 1 PGD 1 0 :1:7 
 ]
-[s S189 . 1 `uc 1 FLT0 1 0 :1:0 
+[s S291 . 1 `uc 1 FLT0 1 0 :1:0 
 ]
-[s S191 . 1 `uc 1 . 1 0 :3:0 
+[s S293 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP2_PA2 1 0 :1:3 
 ]
-[u S194 . 1 `S162 1 . 1 0 `S171 1 . 1 0 `S180 1 . 1 0 `S189 1 . 1 0 `S191 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES194  1 e 1 @3969 ]
+[u S296 . 1 `S264 1 . 1 0 `S273 1 . 1 0 `S282 1 . 1 0 `S291 1 . 1 0 `S293 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES296  1 e 1 @3969 ]
 "25889
 [v _PORTC PORTC `VEuc  1 e 1 @3970 ]
 "26059
@@ -216,11 +265,11 @@ e_ind_right 2
 [v _ADRESL ADRESL `VEuc  1 e 1 @4035 ]
 "30407
 [v _ADRESH ADRESH `VEuc  1 e 1 @4036 ]
-[s S122 . 1 `uc 1 . 1 0 :7:0 
+[s S224 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 NOT_RBPU 1 0 :1:7 
 ]
 "32106
-[s S125 . 1 `uc 1 RBIP 1 0 :1:0 
+[s S227 . 1 `uc 1 RBIP 1 0 :1:0 
 `uc 1 . 1 0 :1:1 
 `uc 1 TMR0IP 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -229,13 +278,13 @@ e_ind_right 2
 `uc 1 INTEDG0 1 0 :1:6 
 `uc 1 nRBPU 1 0 :1:7 
 ]
-[s S134 . 1 `uc 1 . 1 0 :2:0 
+[s S236 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 T0IP 1 0 :1:2 
 `uc 1 . 1 0 :4:3 
 `uc 1 RBPU 1 0 :1:7 
 ]
-[u S139 . 1 `S122 1 . 1 0 `S125 1 . 1 0 `S134 1 . 1 0 ]
-[v _INTCON2bits INTCON2bits `VES139  1 e 1 @4081 ]
+[u S241 . 1 `S224 1 . 1 0 `S227 1 . 1 0 `S236 1 . 1 0 ]
+[v _INTCON2bits INTCON2bits `VES241  1 e 1 @4081 ]
 "32495
 [v _ACQT0 ACQT0 `VEb  1 e 0 @32259 ]
 "32498
@@ -314,29 +363,35 @@ e_ind_right 2
 [v _VCFG0 VCFG0 `VEb  1 e 0 @32268 ]
 "40361
 [v _VCFG1 VCFG1 `VEb  1 e 0 @32269 ]
-"16 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_sensor.c
+"17 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_sensor.c
 [v _adc_val adc_val `us  1 e 2 0 ]
-"17
+"18
 [v _rpm rpm `us  1 e 2 0 ]
-"19
-[v _rpm_arr rpm_arr `[5]uc  1 e 5 0 ]
 "20
-[v _digit digit `[10]uc  1 e 10 0 ]
+[v _rpm_arr rpm_arr `[5]uc  1 e 5 0 ]
 "21
-[v _ssd ssd `[4]uc  1 e 4 0 ]
+[v _digit digit `[10]uc  1 e 10 0 ]
 "22
+[v _ssd ssd `[4]uc  1 e 4 0 ]
+"23
 [v _key key `uc  1 e 1 0 ]
+"25
+[v _rpm_rec rpm_rec `[5]uc  1 e 5 0 ]
+"26
+[v _rpm_len rpm_len `uc  1 e 1 0 ]
+"27
+[v _rpm_msg_id rpm_msg_id `us  1 e 2 0 ]
 "15 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\matrix_keypad.c
 [v _once once `uc  1 s 1 once ]
-"20 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_main.c
+"21 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_main.c
 [v _main main `(i  1 e 2 0 ]
 {
-"28
+"29
 } 0
-"49 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_sensor.c
+"67 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_sensor.c
 [v _process_indicator process_indicator `(E10495  1 e 1 0 ]
 {
-"70
+"88
 } 0
 "8 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\digital_keypad.c
 [v _read_digital_keypad read_digital_keypad `(uc  1 e 1 0 ]
@@ -352,32 +407,39 @@ e_ind_right 2
 "13 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_main.c
 [v _init_config init_config `(v  1 s 1 init_config ]
 {
-"18
+"19
 } 0
 "12 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ssd_display.c
 [v _init_ssd_control init_ssd_control `(v  1 e 1 0 ]
 {
 "20
 } 0
-"30 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_main.c
+"31 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_main.c
 [v _init_led init_led `(v  1 e 1 0 ]
 {
-"35
+"36
 } 0
 "4 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\digital_keypad.c
 [v _init_digital_keypad init_digital_keypad `(v  1 e 1 0 ]
 {
 "6
 } 0
+"15 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\can.c
+[v _init_can init_can `(v  1 e 1 0 ]
+{
+"48
+} 0
 "4 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\adc.c
 [v _init_adc init_adc `(v  1 e 1 0 ]
 {
 "41
 } 0
-"24 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_sensor.c
+"29 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\ecu2_sensor.c
 [v _get_rpm get_rpm `(us  1 e 2 0 ]
 {
-"43
+"58
+[v get_rpm@i i `i  1 a 2 76 ]
+"61
 } 0
 "43 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\adc.c
 [v _read_adc read_adc `(us  1 e 2 0 ]
@@ -401,6 +463,45 @@ e_ind_right 2
 "23
 [v display@data data `*.30uc  1 p 1 0 ]
 "35
+} 0
+"64 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_02.X\can.c
+[v _can_transmit can_transmit `(v  1 e 1 0 ]
+{
+"79
+[v can_transmit@i i `i  1 a 2 13 ]
+"65
+[v can_transmit@ptr ptr `*.39uc  1 a 2 11 ]
+"64
+[v can_transmit@msg_id msg_id `us  1 p 2 4 ]
+[v can_transmit@data data `*.30Cuc  1 p 1 6 ]
+[v can_transmit@len len `uc  1 p 1 7 ]
+"83
+} 0
+"57
+[v _set_msg_id_std set_msg_id_std `(v  1 s 1 set_msg_id_std ]
+{
+[v set_msg_id_std@id id `ui  1 p 2 0 ]
+"60
+} 0
+"89
+[v _can_receive can_receive `(v  1 e 1 0 ]
+{
+"100
+[v can_receive@i i `i  1 a 2 16 ]
+"90
+[v can_receive@ptr ptr `*.39uc  1 a 2 14 ]
+"89
+[v can_receive@msg_id msg_id `*.30us  1 p 1 8 ]
+[v can_receive@data data `*.30uc  1 p 1 9 ]
+[v can_receive@len len `*.30uc  1 p 1 10 ]
+"110
+} 0
+"50
+[v _get_msg_id_std get_msg_id_std `(us  1 s 2 get_msg_id_std ]
+{
+"51
+[v get_msg_id_std@id id `us  1 a 2 6 ]
+"54
 } 0
 "10 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\xxtofl.c
 [v ___xxtofl __xxtofl `(d  1 e 4 0 ]
@@ -452,17 +553,17 @@ e_ind_right 2
 "8 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\sprcmul.c
 [v ___flmul __flmul `(d  1 e 4 0 ]
 {
-[s S834 . 4 `uc 1 a 1 0 `uc 1 b 1 1 `uc 1 c 1 2 `uc 1 d 1 3 ]
+[s S948 . 4 `uc 1 a 1 0 `uc 1 b 1 1 `uc 1 c 1 2 `uc 1 d 1 3 ]
 "13
-[s S839 . 4 `s 1 wordA 2 0 `s 1 wordB 2 2 ]
-[u S842 . 4 `l 1 i 4 0 `d 1 f 4 0 `S834 1 fAsBytes 4 0 `S839 1 fAsWords 4 0 ]
-[v ___flmul@prod prod `S842  1 a 4 58 ]
+[s S953 . 4 `s 1 wordA 2 0 `s 1 wordB 2 2 ]
+[u S956 . 4 `l 1 i 4 0 `d 1 f 4 0 `S948 1 fAsBytes 4 0 `S953 1 fAsWords 4 0 ]
+[v ___flmul@prod prod `S956  1 a 4 58 ]
 "12
 [v ___flmul@grs grs `ul  1 a 4 52 ]
-[s S910 . 2 `uc 1 a 1 0 `uc 1 b 1 1 ]
+[s S1024 . 2 `uc 1 a 1 0 `uc 1 b 1 1 ]
 "14
-[u S913 . 2 `s 1 i 2 0 `us 1 n 2 0 `S910 1 nAsBytes 2 0 ]
-[v ___flmul@temp temp `S913  1 a 2 62 ]
+[u S1027 . 2 `s 1 i 2 0 `us 1 n 2 0 `S1024 1 nAsBytes 2 0 ]
+[v ___flmul@temp temp `S1027  1 a 2 62 ]
 "10
 [v ___flmul@bexp bexp `uc  1 a 1 57 ]
 "11
