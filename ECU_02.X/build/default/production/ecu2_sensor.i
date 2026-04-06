@@ -18078,43 +18078,56 @@ void clcd_write(unsigned char bit_values, unsigned char control_bit);
 # 15 "ecu2_sensor.c" 2
 
 
+int count_r;
+int count_l;
+
 uint16_t adc_val;
 uint16_t rpm;
 
-char rpm_arr[5];
-char digit[] = {0xE7, 0x21, 0xCB, 0x6B, 0x2D, 0x6E, 0xEE, 0x23, 0xEF, 0x6F};
-char ssd[4];
-char key;
+unsigned char rpm_arr[5];
+unsigned char digit[] = {0xE7, 0x21, 0xCB, 0x6B, 0x2D, 0x6E, 0xEE, 0x23, 0xEF, 0x6F};
+unsigned char ssd[4];
+unsigned char key;
 
 unsigned char rpm_rec[5];
 unsigned char rpm_len;
 unsigned short rpm_msg_id;
 
-uint16_t get_rpm() {
+unsigned char ind_tx[1];
+unsigned char ind_rx[1];
+unsigned char ind_len;
+unsigned short ind_msg_id;
+IndicatorStatus status = e_ind_off;
+IndicatorStatus status_rx;
 
-
+uint16_t get_rpm(void) {
     adc_val = read_adc(0x04);
-    rpm = (adc_val / 10.23) * 60;
+
+    rpm = ((adc_val / 10.23) * 60);
 
     rpm_arr[0] = (rpm / 1000) + '0';
     rpm_arr[1] = ((rpm / 100) % 10) + '0';
     rpm_arr[2] = ((rpm / 10) % 10) + '0';
     rpm_arr[3] = (rpm % 10) + '0';
-    rpm_arr[4] = '\0';
-# 48 "ecu2_sensor.c"
-    can_transmit(0x30, rpm_arr, 5);
+
+    can_transmit(0x30, rpm_arr, 4);
+
     _delay((unsigned long)((80)*(20000000/4000.0)));
+
     can_receive(&rpm_msg_id, rpm_rec, &rpm_len);
-    rpm_rec[rpm_len] = '\0';
+
 
     ssd[0] = digit[rpm_rec[0] - '0'];
     ssd[1] = digit[rpm_rec[1] - '0'];
     ssd[2] = digit[rpm_rec[2] - '0'];
     ssd[3] = digit[rpm_rec[3] - '0'];
 
-    for (int i = 0; i < 10; i++)
-        display(ssd);
-    return 0;
+
+
+    display(ssd);
+
+
+    return rpm;
 }
 
 uint16_t get_engine_temp() {
@@ -18123,23 +18136,55 @@ uint16_t get_engine_temp() {
 
 IndicatorStatus process_indicator() {
 
-
     key = read_digital_keypad(1);
 
     if (key == 0x0E) {
-        PORTBbits.RB0 = 1;
-        PORTBbits.RB1 = 1;
-        PORTBbits.RB6 = 0;
-        PORTBbits.RB7 = 0;
+        status = e_ind_left;
     } else if (key == 0x0D) {
+        status = e_ind_off;
+    } else if (key == 0x0B) {
+        status = e_ind_right;
+    }
+# 102 "ecu2_sensor.c"
+    ind_tx[0] = (unsigned char) status;
+
+    can_transmit(0x50, ind_tx, 1);
+    _delay((unsigned long)((50)*(20000000/4000.0)));
+    can_receive(&ind_msg_id, ind_rx, &ind_len);
+
+    status_rx = (IndicatorStatus) ind_rx[0];
+
+    if (status_rx == e_ind_left) {
+        if (count_r++ < 5) {
+            PORTBbits.RB0 = 1;
+            PORTBbits.RB1 = 1;
+            PORTBbits.RB6 = 0;
+            PORTBbits.RB7 = 0;
+        }
+        else {
+            count_r = 0;
+            PORTBbits.RB0 = 0;
+            PORTBbits.RB1 = 0;
+        }
+
+    } else if (status_rx == e_ind_off) {
         PORTBbits.RB0 = 0;
         PORTBbits.RB1 = 0;
         PORTBbits.RB6 = 0;
         PORTBbits.RB7 = 0;
-    } else if (key == 0x0B) {
-        PORTBbits.RB0 = 0;
-        PORTBbits.RB1 = 0;
-        PORTBbits.RB6 = 1;
-        PORTBbits.RB7 = 1;
+    } else if (status_rx == e_ind_right) {
+        if (count_l++ < 5) {
+            PORTBbits.RB0 = 0;
+            PORTBbits.RB1 = 0;
+            PORTBbits.RB6 = 1;
+            PORTBbits.RB7 = 1;
+        }
+        else {
+            count_l = 0;
+            PORTBbits.RB6 = 0;
+            PORTBbits.RB7 = 0;
+        }
     }
+# 158 "ecu2_sensor.c"
+    return status;
 }

@@ -1,4 +1,8 @@
 Version 4.0 HI-TECH Software Intermediate Code
+"36 ecu2_sensor.c
+[; ;ecu2_sensor.c: 36: IndicatorStatus status = e_ind_off;
+[c E10483 0 1 2 .. ]
+[n E10483 . e_ind_off e_ind_left e_ind_right  ]
 "17 ./adc.h
 [; ;./adc.h: 17: unsigned short read_adc(unsigned char channel);
 [v _read_adc `(us ~T0 @X0 0 ef1`uc ]
@@ -15,10 +19,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "31 ./ssd_display.h
 [; ;./ssd_display.h: 31: void display(unsigned char data[]);
 [v _display `(v ~T0 @X0 0 ef1`*uc ]
-"67 ecu2_sensor.c
-[; ;ecu2_sensor.c: 67: IndicatorStatus process_indicator() {
-[c E10483 0 1 2 .. ]
-[n E10483 . e_ind_off e_ind_left e_ind_right  ]
 "18 ./digital_keypad.h
 [; ;./digital_keypad.h: 18: unsigned char read_digital_keypad(unsigned char detection_type);
 [v _read_digital_keypad `(uc ~T0 @X0 0 ef1`uc ]
@@ -1289,16 +1289,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 32465: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
 "17 ecu2_sensor.c
-[; ;ecu2_sensor.c: 17: uint16_t adc_val;
-[v _adc_val `us ~T0 @X0 1 e ]
+[; ;ecu2_sensor.c: 17: int count_r;
+[v _count_r `i ~T0 @X0 1 e ]
 "18
-[; ;ecu2_sensor.c: 18: uint16_t rpm;
-[v _rpm `us ~T0 @X0 1 e ]
+[; ;ecu2_sensor.c: 18: int count_l;
+[v _count_l `i ~T0 @X0 1 e ]
 "20
-[; ;ecu2_sensor.c: 20: char rpm_arr[5];
-[v _rpm_arr `uc ~T0 @X0 -> 5 `i e ]
+[; ;ecu2_sensor.c: 20: uint16_t adc_val;
+[v _adc_val `us ~T0 @X0 1 e ]
 "21
-[; ;ecu2_sensor.c: 21: char digit[] = {0xE7, 0x21, 0xCB, 0x6B, 0x2D, 0x6E, 0xEE, 0x23, 0xEF, 0x6F};
+[; ;ecu2_sensor.c: 21: uint16_t rpm;
+[v _rpm `us ~T0 @X0 1 e ]
+"23
+[; ;ecu2_sensor.c: 23: unsigned char rpm_arr[5];
+[v _rpm_arr `uc ~T0 @X0 -> 5 `i e ]
+"24
+[; ;ecu2_sensor.c: 24: unsigned char digit[] = {0xE7, 0x21, 0xCB, 0x6B, 0x2D, 0x6E, 0xEE, 0x23, 0xEF, 0x6F};
 [v _digit `uc ~T0 @X0 -> 10 `i e ]
 [i _digit
 :U ..
@@ -1314,175 +1320,280 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> -> 111 `i `uc
 ..
 ]
-"22
-[; ;ecu2_sensor.c: 22: char ssd[4];
-[v _ssd `uc ~T0 @X0 -> 4 `i e ]
-"23
-[; ;ecu2_sensor.c: 23: char key;
-[v _key `uc ~T0 @X0 1 e ]
 "25
-[; ;ecu2_sensor.c: 25: unsigned char rpm_rec[5];
-[v _rpm_rec `uc ~T0 @X0 -> 5 `i e ]
+[; ;ecu2_sensor.c: 25: unsigned char ssd[4];
+[v _ssd `uc ~T0 @X0 -> 4 `i e ]
 "26
-[; ;ecu2_sensor.c: 26: unsigned char rpm_len;
-[v _rpm_len `uc ~T0 @X0 1 e ]
-"27
-[; ;ecu2_sensor.c: 27: unsigned short rpm_msg_id;
-[v _rpm_msg_id `us ~T0 @X0 1 e ]
+[; ;ecu2_sensor.c: 26: unsigned char key;
+[v _key `uc ~T0 @X0 1 e ]
+"28
+[; ;ecu2_sensor.c: 28: unsigned char rpm_rec[5];
+[v _rpm_rec `uc ~T0 @X0 -> 5 `i e ]
 "29
-[; ;ecu2_sensor.c: 29: uint16_t get_rpm() {
+[; ;ecu2_sensor.c: 29: unsigned char rpm_len;
+[v _rpm_len `uc ~T0 @X0 1 e ]
+"30
+[; ;ecu2_sensor.c: 30: unsigned short rpm_msg_id;
+[v _rpm_msg_id `us ~T0 @X0 1 e ]
+"32
+[; ;ecu2_sensor.c: 32: unsigned char ind_tx[1];
+[v _ind_tx `uc ~T0 @X0 -> -> 1 `i `ux e ]
+"33
+[; ;ecu2_sensor.c: 33: unsigned char ind_rx[1];
+[v _ind_rx `uc ~T0 @X0 -> -> 1 `i `ux e ]
+"34
+[; ;ecu2_sensor.c: 34: unsigned char ind_len;
+[v _ind_len `uc ~T0 @X0 1 e ]
+"35
+[; ;ecu2_sensor.c: 35: unsigned short ind_msg_id;
+[v _ind_msg_id `us ~T0 @X0 1 e ]
+"36
+[; ;ecu2_sensor.c: 36: IndicatorStatus status = e_ind_off;
+[v _status `E10483 ~T0 @X0 1 e ]
+[i _status
+. `E10483 0
+]
+"37
+[; ;ecu2_sensor.c: 37: IndicatorStatus status_rx;
+[v _status_rx `E10483 ~T0 @X0 1 e ]
+"39
+[; ;ecu2_sensor.c: 39: uint16_t get_rpm(void) {
 [v _get_rpm `(us ~T0 @X0 1 ef ]
 {
 [e :U _get_rpm ]
 [f ]
-"32
-[; ;ecu2_sensor.c: 32:     adc_val = read_adc(0x04);
+"40
+[; ;ecu2_sensor.c: 40:     adc_val = read_adc(0x04);
 [e = _adc_val ( _read_adc (1 -> -> 4 `i `uc ]
-"33
-[; ;ecu2_sensor.c: 33:     rpm = (adc_val / 10.23) * 60;
+"42
+[; ;ecu2_sensor.c: 42:     rpm = ((adc_val / 10.23) * 60);
 [e = _rpm -> * / -> -> _adc_val `ui `d .10.23 -> -> 60 `i `d `us ]
-"35
-[; ;ecu2_sensor.c: 35:     rpm_arr[0] = (rpm / 1000) + '0';
+"44
+[; ;ecu2_sensor.c: 44:     rpm_arr[0] = (rpm / 1000) + '0';
 [e = *U + &U _rpm_arr * -> -> -> 0 `i `ui `ux -> -> # *U &U _rpm_arr `ui `ux -> + / -> _rpm `ui -> -> 1000 `i `ui -> 48 `ui `uc ]
-"36
-[; ;ecu2_sensor.c: 36:     rpm_arr[1] = ((rpm / 100) % 10) + '0';
+"45
+[; ;ecu2_sensor.c: 45:     rpm_arr[1] = ((rpm / 100) % 10) + '0';
 [e = *U + &U _rpm_arr * -> -> -> 1 `i `ui `ux -> -> # *U &U _rpm_arr `ui `ux -> + % / -> _rpm `ui -> -> 100 `i `ui -> -> 10 `i `ui -> 48 `ui `uc ]
-"37
-[; ;ecu2_sensor.c: 37:     rpm_arr[2] = ((rpm / 10) % 10) + '0';
+"46
+[; ;ecu2_sensor.c: 46:     rpm_arr[2] = ((rpm / 10) % 10) + '0';
 [e = *U + &U _rpm_arr * -> -> -> 2 `i `ui `ux -> -> # *U &U _rpm_arr `ui `ux -> + % / -> _rpm `ui -> -> 10 `i `ui -> -> 10 `i `ui -> 48 `ui `uc ]
-"38
-[; ;ecu2_sensor.c: 38:     rpm_arr[3] = (rpm % 10) + '0';
+"47
+[; ;ecu2_sensor.c: 47:     rpm_arr[3] = (rpm % 10) + '0';
 [e = *U + &U _rpm_arr * -> -> -> 3 `i `ui `ux -> -> # *U &U _rpm_arr `ui `ux -> + % -> _rpm `ui -> -> 10 `i `ui -> 48 `ui `uc ]
-"39
-[; ;ecu2_sensor.c: 39:     rpm_arr[4] = '\0';
-[e = *U + &U _rpm_arr * -> -> -> 4 `i `ui `ux -> -> # *U &U _rpm_arr `ui `ux -> -> 0 `ui `uc ]
-"48
-[; ;ecu2_sensor.c: 48:     can_transmit(0x30, rpm_arr, 5);
-[e ( _can_transmit (3 , , -> -> 48 `i `us -> &U _rpm_arr `*Cuc -> -> 5 `i `uc ]
 "49
-[; ;ecu2_sensor.c: 49:     _delay((unsigned long)((80)*(20000000/4000.0)));
-[e ( __delay (1 -> * -> -> 80 `i `d / -> -> 20000000 `l `d .4000.0 `ul ]
-"50
-[; ;ecu2_sensor.c: 50:     can_receive(&rpm_msg_id, rpm_rec, &rpm_len);
-[e ( _can_receive (3 , , &U _rpm_msg_id &U _rpm_rec &U _rpm_len ]
+[; ;ecu2_sensor.c: 49:     can_transmit(0x30, rpm_arr, 4);
+[e ( _can_transmit (3 , , -> -> 48 `i `us -> &U _rpm_arr `*Cuc -> -> 4 `i `uc ]
 "51
-[; ;ecu2_sensor.c: 51:     rpm_rec[rpm_len] = '\0';
-[e = *U + &U _rpm_rec * -> _rpm_len `ux -> -> # *U &U _rpm_rec `ui `ux -> -> 0 `ui `uc ]
+[; ;ecu2_sensor.c: 51:     _delay((unsigned long)((80)*(20000000/4000.0)));
+[e ( __delay (1 -> * -> -> 80 `i `d / -> -> 20000000 `l `d .4000.0 `ul ]
 "53
-[; ;ecu2_sensor.c: 53:     ssd[0] = digit[rpm_rec[0] - '0'];
-[e = *U + &U _ssd * -> -> -> 0 `i `ui `ux -> -> # *U &U _ssd `ui `ux *U + &U _digit * -> - -> *U + &U _rpm_rec * -> -> -> 0 `i `ui `ux -> -> # *U &U _rpm_rec `ui `ux `ui -> 48 `ui `ux -> -> # *U &U _digit `ui `ux ]
-"54
-[; ;ecu2_sensor.c: 54:     ssd[1] = digit[rpm_rec[1] - '0'];
-[e = *U + &U _ssd * -> -> -> 1 `i `ui `ux -> -> # *U &U _ssd `ui `ux *U + &U _digit * -> - -> *U + &U _rpm_rec * -> -> -> 1 `i `ui `ux -> -> # *U &U _rpm_rec `ui `ux `ui -> 48 `ui `ux -> -> # *U &U _digit `ui `ux ]
-"55
-[; ;ecu2_sensor.c: 55:     ssd[2] = digit[rpm_rec[2] - '0'];
-[e = *U + &U _ssd * -> -> -> 2 `i `ui `ux -> -> # *U &U _ssd `ui `ux *U + &U _digit * -> - -> *U + &U _rpm_rec * -> -> -> 2 `i `ui `ux -> -> # *U &U _rpm_rec `ui `ux `ui -> 48 `ui `ux -> -> # *U &U _digit `ui `ux ]
+[; ;ecu2_sensor.c: 53:     can_receive(&rpm_msg_id, rpm_rec, &rpm_len);
+[e ( _can_receive (3 , , &U _rpm_msg_id &U _rpm_rec &U _rpm_len ]
 "56
-[; ;ecu2_sensor.c: 56:     ssd[3] = digit[rpm_rec[3] - '0'];
-[e = *U + &U _ssd * -> -> -> 3 `i `ui `ux -> -> # *U &U _ssd `ui `ux *U + &U _digit * -> - -> *U + &U _rpm_rec * -> -> -> 3 `i `ui `ux -> -> # *U &U _rpm_rec `ui `ux `ui -> 48 `ui `ux -> -> # *U &U _digit `ui `ux ]
+[; ;ecu2_sensor.c: 56:     ssd[0] = digit[rpm_rec[0] - '0'];
+[e = *U + &U _ssd * -> -> -> 0 `i `ui `ux -> -> # *U &U _ssd `ui `ux *U + &U _digit * -> - -> *U + &U _rpm_rec * -> -> -> 0 `i `ui `ux -> -> # *U &U _rpm_rec `ui `ux `ui -> 48 `ui `ux -> -> # *U &U _digit `ui `ux ]
+"57
+[; ;ecu2_sensor.c: 57:     ssd[1] = digit[rpm_rec[1] - '0'];
+[e = *U + &U _ssd * -> -> -> 1 `i `ui `ux -> -> # *U &U _ssd `ui `ux *U + &U _digit * -> - -> *U + &U _rpm_rec * -> -> -> 1 `i `ui `ux -> -> # *U &U _rpm_rec `ui `ux `ui -> 48 `ui `ux -> -> # *U &U _digit `ui `ux ]
 "58
-[; ;ecu2_sensor.c: 58:     for (int i = 0; i < 10; i++)
-{
-[v _i `i ~T0 @X0 1 a ]
-[e = _i -> 0 `i ]
-[e $ < _i -> 10 `i 1089  ]
-[e $U 1090  ]
-[e :U 1089 ]
+[; ;ecu2_sensor.c: 58:     ssd[2] = digit[rpm_rec[2] - '0'];
+[e = *U + &U _ssd * -> -> -> 2 `i `ui `ux -> -> # *U &U _ssd `ui `ux *U + &U _digit * -> - -> *U + &U _rpm_rec * -> -> -> 2 `i `ui `ux -> -> # *U &U _rpm_rec `ui `ux `ui -> 48 `ui `ux -> -> # *U &U _digit `ui `ux ]
 "59
-[; ;ecu2_sensor.c: 59:         display(ssd);
-[e ( _display (1 -> &U _ssd `*uc ]
-[e ++ _i -> 1 `i ]
-[e $ < _i -> 10 `i 1089  ]
-[e :U 1090 ]
-}
-"60
-[; ;ecu2_sensor.c: 60:     return 0;
-[e ) -> -> 0 `i `us ]
+[; ;ecu2_sensor.c: 59:     ssd[3] = digit[rpm_rec[3] - '0'];
+[e = *U + &U _ssd * -> -> -> 3 `i `ui `ux -> -> # *U &U _ssd `ui `ux *U + &U _digit * -> - -> *U + &U _rpm_rec * -> -> -> 3 `i `ui `ux -> -> # *U &U _rpm_rec `ui `ux `ui -> 48 `ui `ux -> -> # *U &U _digit `ui `ux ]
+"63
+[; ;ecu2_sensor.c: 63:     display(ssd);
+[e ( _display (1 &U _ssd ]
+"66
+[; ;ecu2_sensor.c: 66:     return rpm;
+[e ) _rpm ]
 [e $UE 1088  ]
-"61
-[; ;ecu2_sensor.c: 61: }
+"67
+[; ;ecu2_sensor.c: 67: }
 [e :UE 1088 ]
 }
-"63
-[; ;ecu2_sensor.c: 63: uint16_t get_engine_temp() {
+"69
+[; ;ecu2_sensor.c: 69: uint16_t get_engine_temp() {
 [v _get_engine_temp `(us ~T0 @X0 1 ef ]
 {
 [e :U _get_engine_temp ]
 [f ]
-"65
-[; ;ecu2_sensor.c: 65: }
-[e :UE 1092 ]
+"71
+[; ;ecu2_sensor.c: 71: }
+[e :UE 1089 ]
 }
-"67
-[; ;ecu2_sensor.c: 67: IndicatorStatus process_indicator() {
+"73
+[; ;ecu2_sensor.c: 73: IndicatorStatus process_indicator() {
 [v _process_indicator `(E10483 ~T0 @X0 1 ef ]
 {
 [e :U _process_indicator ]
 [f ]
-"70
-[; ;ecu2_sensor.c: 70:     key = read_digital_keypad(1);
-[e = _key -> ( _read_digital_keypad (1 -> -> 1 `i `uc `uc ]
-"72
-[; ;ecu2_sensor.c: 72:     if (key == 0x0E) {
-[e $ ! == -> _key `i -> 14 `i 1094  ]
-{
-"73
-[; ;ecu2_sensor.c: 73:         PORTBbits.RB0 = 1;
-[e = . . _PORTBbits 0 0 -> -> 1 `i `uc ]
-"74
-[; ;ecu2_sensor.c: 74:         PORTBbits.RB1 = 1;
-[e = . . _PORTBbits 0 1 -> -> 1 `i `uc ]
 "75
-[; ;ecu2_sensor.c: 75:         PORTBbits.RB6 = 0;
-[e = . . _PORTBbits 0 6 -> -> 0 `i `uc ]
-"76
-[; ;ecu2_sensor.c: 76:         PORTBbits.RB7 = 0;
-[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+[; ;ecu2_sensor.c: 75:     key = read_digital_keypad(1);
+[e = _key ( _read_digital_keypad (1 -> -> 1 `i `uc ]
 "77
-[; ;ecu2_sensor.c: 77:     } else if (key == 0x0D) {
-}
-[e $U 1095  ]
-[e :U 1094 ]
-[e $ ! == -> _key `i -> 13 `i 1096  ]
+[; ;ecu2_sensor.c: 77:     if (key == 0x0E) {
+[e $ ! == -> _key `i -> 14 `i 1091  ]
 {
 "78
-[; ;ecu2_sensor.c: 78:         PORTBbits.RB0 = 0;
-[e = . . _PORTBbits 0 0 -> -> 0 `i `uc ]
+[; ;ecu2_sensor.c: 78:         status = e_ind_left;
+[e = _status . `E10483 1 ]
 "79
-[; ;ecu2_sensor.c: 79:         PORTBbits.RB1 = 0;
-[e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
-"80
-[; ;ecu2_sensor.c: 80:         PORTBbits.RB6 = 0;
-[e = . . _PORTBbits 0 6 -> -> 0 `i `uc ]
-"81
-[; ;ecu2_sensor.c: 81:         PORTBbits.RB7 = 0;
-[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
-"82
-[; ;ecu2_sensor.c: 82:     } else if (key == 0x0B) {
+[; ;ecu2_sensor.c: 79:     } else if (key == 0x0D) {
 }
-[e $U 1097  ]
-[e :U 1096 ]
-[e $ ! == -> _key `i -> 11 `i 1098  ]
+[e $U 1092  ]
+[e :U 1091 ]
+[e $ ! == -> _key `i -> 13 `i 1093  ]
 {
+"80
+[; ;ecu2_sensor.c: 80:         status = e_ind_off;
+[e = _status . `E10483 0 ]
+"81
+[; ;ecu2_sensor.c: 81:     } else if (key == 0x0B) {
+}
+[e $U 1094  ]
+[e :U 1093 ]
+[e $ ! == -> _key `i -> 11 `i 1095  ]
+{
+"82
+[; ;ecu2_sensor.c: 82:         status = e_ind_right;
+[e = _status . `E10483 2 ]
 "83
-[; ;ecu2_sensor.c: 83:         PORTBbits.RB0 = 0;
+[; ;ecu2_sensor.c: 83:     }
+}
+[e :U 1095 ]
+[e :U 1094 ]
+[e :U 1092 ]
+"102
+[; ;ecu2_sensor.c: 102:     ind_tx[0] = (unsigned char) status;
+[e = *U + &U _ind_tx * -> -> -> 0 `i `ui `ux -> -> # *U &U _ind_tx `ui `ux -> _status `uc ]
+"104
+[; ;ecu2_sensor.c: 104:     can_transmit(0x50, ind_tx, 1);
+[e ( _can_transmit (3 , , -> -> 80 `i `us -> &U _ind_tx `*Cuc -> -> 1 `i `uc ]
+"105
+[; ;ecu2_sensor.c: 105:     _delay((unsigned long)((50)*(20000000/4000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 20000000 `l `d .4000.0 `ul ]
+"106
+[; ;ecu2_sensor.c: 106:     can_receive(&ind_msg_id, ind_rx, &ind_len);
+[e ( _can_receive (3 , , &U _ind_msg_id &U _ind_rx &U _ind_len ]
+"108
+[; ;ecu2_sensor.c: 108:     status_rx = (IndicatorStatus) ind_rx[0];
+[e = _status_rx -> *U + &U _ind_rx * -> -> -> 0 `i `ui `ux -> -> # *U &U _ind_rx `ui `ux `E10483 ]
+"110
+[; ;ecu2_sensor.c: 110:     if (status_rx == e_ind_left) {
+[e $ ! == -> _status_rx `ui -> . `E10483 1 `ui 1096  ]
+{
+"111
+[; ;ecu2_sensor.c: 111:         if (count_r++ < 5) {
+[e $ ! < ++ _count_r -> 1 `i -> 5 `i 1097  ]
+{
+"112
+[; ;ecu2_sensor.c: 112:             PORTBbits.RB0 = 1;
+[e = . . _PORTBbits 0 0 -> -> 1 `i `uc ]
+"113
+[; ;ecu2_sensor.c: 113:             PORTBbits.RB1 = 1;
+[e = . . _PORTBbits 0 1 -> -> 1 `i `uc ]
+"114
+[; ;ecu2_sensor.c: 114:             PORTBbits.RB6 = 0;
+[e = . . _PORTBbits 0 6 -> -> 0 `i `uc ]
+"115
+[; ;ecu2_sensor.c: 115:             PORTBbits.RB7 = 0;
+[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+"116
+[; ;ecu2_sensor.c: 116:         }
+}
+[e $U 1098  ]
+"117
+[; ;ecu2_sensor.c: 117:         else {
+[e :U 1097 ]
+{
+"118
+[; ;ecu2_sensor.c: 118:             count_r = 0;
+[e = _count_r -> 0 `i ]
+"119
+[; ;ecu2_sensor.c: 119:             PORTBbits.RB0 = 0;
 [e = . . _PORTBbits 0 0 -> -> 0 `i `uc ]
-"84
-[; ;ecu2_sensor.c: 84:         PORTBbits.RB1 = 0;
+"120
+[; ;ecu2_sensor.c: 120:             PORTBbits.RB1 = 0;
 [e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
-"85
-[; ;ecu2_sensor.c: 85:         PORTBbits.RB6 = 1;
-[e = . . _PORTBbits 0 6 -> -> 1 `i `uc ]
-"86
-[; ;ecu2_sensor.c: 86:         PORTBbits.RB7 = 1;
-[e = . . _PORTBbits 0 7 -> -> 1 `i `uc ]
-"87
-[; ;ecu2_sensor.c: 87:     }
+"121
+[; ;ecu2_sensor.c: 121:         }
 }
 [e :U 1098 ]
-[e :U 1097 ]
-[e :U 1095 ]
-"88
-[; ;ecu2_sensor.c: 88: }
-[e :UE 1093 ]
+"123
+[; ;ecu2_sensor.c: 123:     } else if (status_rx == e_ind_off) {
+}
+[e $U 1099  ]
+[e :U 1096 ]
+[e $ ! == -> _status_rx `ui -> . `E10483 0 `ui 1100  ]
+{
+"124
+[; ;ecu2_sensor.c: 124:         PORTBbits.RB0 = 0;
+[e = . . _PORTBbits 0 0 -> -> 0 `i `uc ]
+"125
+[; ;ecu2_sensor.c: 125:         PORTBbits.RB1 = 0;
+[e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
+"126
+[; ;ecu2_sensor.c: 126:         PORTBbits.RB6 = 0;
+[e = . . _PORTBbits 0 6 -> -> 0 `i `uc ]
+"127
+[; ;ecu2_sensor.c: 127:         PORTBbits.RB7 = 0;
+[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+"128
+[; ;ecu2_sensor.c: 128:     } else if (status_rx == e_ind_right) {
+}
+[e $U 1101  ]
+[e :U 1100 ]
+[e $ ! == -> _status_rx `ui -> . `E10483 2 `ui 1102  ]
+{
+"129
+[; ;ecu2_sensor.c: 129:         if (count_l++ < 5) {
+[e $ ! < ++ _count_l -> 1 `i -> 5 `i 1103  ]
+{
+"130
+[; ;ecu2_sensor.c: 130:             PORTBbits.RB0 = 0;
+[e = . . _PORTBbits 0 0 -> -> 0 `i `uc ]
+"131
+[; ;ecu2_sensor.c: 131:             PORTBbits.RB1 = 0;
+[e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
+"132
+[; ;ecu2_sensor.c: 132:             PORTBbits.RB6 = 1;
+[e = . . _PORTBbits 0 6 -> -> 1 `i `uc ]
+"133
+[; ;ecu2_sensor.c: 133:             PORTBbits.RB7 = 1;
+[e = . . _PORTBbits 0 7 -> -> 1 `i `uc ]
+"134
+[; ;ecu2_sensor.c: 134:         }
+}
+[e $U 1104  ]
+"135
+[; ;ecu2_sensor.c: 135:         else {
+[e :U 1103 ]
+{
+"136
+[; ;ecu2_sensor.c: 136:             count_l = 0;
+[e = _count_l -> 0 `i ]
+"137
+[; ;ecu2_sensor.c: 137:             PORTBbits.RB6 = 0;
+[e = . . _PORTBbits 0 6 -> -> 0 `i `uc ]
+"138
+[; ;ecu2_sensor.c: 138:             PORTBbits.RB7 = 0;
+[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+"139
+[; ;ecu2_sensor.c: 139:         }
+}
+[e :U 1104 ]
+"140
+[; ;ecu2_sensor.c: 140:     }
+}
+[e :U 1102 ]
+[e :U 1101 ]
+[e :U 1099 ]
+"158
+[; ;ecu2_sensor.c: 158:     return status;
+[e ) _status ]
+[e $UE 1090  ]
+"159
+[; ;ecu2_sensor.c: 159: }
+[e :UE 1090 ]
 }
