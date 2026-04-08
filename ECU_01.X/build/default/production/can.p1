@@ -1383,10 +1383,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;can.c: 39:     RXFCON0 = 0x00;
 [e = _RXFCON0 -> -> 0 `i `uc ]
 "41
-[; ;can.c: 41:     { CANCON &= 0x1F; CANCON |= e_can_op_mode_loop; };
+[; ;can.c: 41:     { CANCON &= 0x1F; CANCON |= e_can_op_mode_normal; };
 {
 [e =& _CANCON -> -> 31 `i `Vuc ]
-[e =| _CANCON -> -> . `E10499 1 `i `Vuc ]
+[e =| _CANCON -> -> . `E10499 0 `i `Vuc ]
 }
 "44
 [; ;can.c: 44:     RXB0CON = 0x00;

@@ -12,18 +12,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "12 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include/builtins.h
 [v __delay `JF205 ~T0 @X0 0 e ]
 [p i __delay ]
-"40 ./can.h
-[; ;./can.h: 40: void can_receive(uint16_t *msg_id, uint8_t *data, uint8_t *len);
-[v _can_receive `(v ~T0 @X0 0 ef3`*us`*uc`*uc ]
-"35 ./clcd.h
-[; ;./clcd.h: 35: void clcd_print(const unsigned char *data, unsigned char addr);
-[v _clcd_print `(v ~T0 @X0 0 ef2`*Cuc`uc ]
 "26 ./matrix_keypad.h
 [; ;./matrix_keypad.h: 26: char scan_switch(void);
 [v _scan_switch `(uc ~T0 @X0 0 ef ]
 "27
 [; ;./matrix_keypad.h: 27: char triggering_type(char detect_type, char key);
 [v _triggering_type `(uc ~T0 @X0 0 ef2`uc`uc ]
+"35 ./clcd.h
+[; ;./clcd.h: 35: void clcd_print(const unsigned char *data, unsigned char addr);
+[v _clcd_print `(v ~T0 @X0 0 ef2`*Cuc`uc ]
 "55 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h
 [; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc/pic18f4580.h: 55: __asm("RXF6SIDH equ 0D60h");
 [; <" RXF6SIDH equ 0D60h ;# ">
@@ -1391,116 +1388,98 @@ Version 4.0 HI-TECH Software Intermediate Code
 "47
 [; ;ecu1_sensor.c: 47:     _delay((unsigned long)((80)*(20000000/4000.0)));
 [e ( __delay (1 -> * -> -> 80 `i `d / -> -> 20000000 `l `d .4000.0 `ul ]
-"50
-[; ;ecu1_sensor.c: 50:     can_receive(&speed_msg_id, speed_rec, &speed_len);
-[e ( _can_receive (3 , , &U _speed_msg_id &U _speed_rec &U _speed_len ]
-"51
-[; ;ecu1_sensor.c: 51:     speed_rec[2] = '\0';
-[e = *U + &U _speed_rec * -> -> -> 2 `i `ui `ux -> -> # *U &U _speed_rec `ui `ux -> -> 0 `ui `uc ]
-"53
-[; ;ecu1_sensor.c: 53:     clcd_print(speed_rec, (0xC0 + (0)));
-[e ( _clcd_print (2 , -> &U _speed_rec `*Cuc -> + -> 192 `i -> 0 `i `uc ]
-"57
-[; ;ecu1_sensor.c: 57:     return speed;
+"58
+[; ;ecu1_sensor.c: 58:     return speed;
 [e ) _speed ]
 [e $UE 1088  ]
-"58
-[; ;ecu1_sensor.c: 58: }
+"59
+[; ;ecu1_sensor.c: 59: }
 [e :UE 1088 ]
 }
-"60
-[; ;ecu1_sensor.c: 60: unsigned char get_gear_pos() {
+"61
+[; ;ecu1_sensor.c: 61: unsigned char get_gear_pos() {
 [v _get_gear_pos `(uc ~T0 @X0 1 ef ]
 {
 [e :U _get_gear_pos ]
 [f ]
-"63
-[; ;ecu1_sensor.c: 63:     key = scan_switch();
-[e = _key ( _scan_switch ..  ]
 "64
-[; ;ecu1_sensor.c: 64:     value = triggering_type(1, key);
+[; ;ecu1_sensor.c: 64:     key = scan_switch();
+[e = _key ( _scan_switch ..  ]
+"65
+[; ;ecu1_sensor.c: 65:     value = triggering_type(1, key);
 [e = _value ( _triggering_type (2 , -> -> 1 `i `uc _key ]
-"66
-[; ;ecu1_sensor.c: 66:     if (value == 1) {
+"67
+[; ;ecu1_sensor.c: 67:     if (value == 1) {
 [e $ ! == -> _value `i -> 1 `i 1090  ]
 {
-"67
-[; ;ecu1_sensor.c: 67:         if (index < 7) {
+"68
+[; ;ecu1_sensor.c: 68:         if (index < 7) {
 [e $ ! < -> _index `i -> 7 `i 1091  ]
 {
-"68
-[; ;ecu1_sensor.c: 68:             index++;
-[e ++ _index -> -> 1 `i `uc ]
 "69
-[; ;ecu1_sensor.c: 69:         }
+[; ;ecu1_sensor.c: 69:             index++;
+[e ++ _index -> -> 1 `i `uc ]
+"70
+[; ;ecu1_sensor.c: 70:         }
 }
 [e :U 1091 ]
-"70
-[; ;ecu1_sensor.c: 70:     } else if (value == 4) {
+"71
+[; ;ecu1_sensor.c: 71:     } else if (value == 4) {
 }
 [e $U 1092  ]
 [e :U 1090 ]
 [e $ ! == -> _value `i -> 4 `i 1093  ]
 {
-"71
-[; ;ecu1_sensor.c: 71:         if (index > 0) {
+"72
+[; ;ecu1_sensor.c: 72:         if (index > 0) {
 [e $ ! > -> _index `i -> 0 `i 1094  ]
 {
-"72
-[; ;ecu1_sensor.c: 72:             index--;
-[e -- _index -> -> 1 `i `uc ]
 "73
-[; ;ecu1_sensor.c: 73:         }
+[; ;ecu1_sensor.c: 73:             index--;
+[e -- _index -> -> 1 `i `uc ]
+"74
+[; ;ecu1_sensor.c: 74:         }
 }
 [e :U 1094 ]
-"74
-[; ;ecu1_sensor.c: 74:     } else if (value == 7) {
+"75
+[; ;ecu1_sensor.c: 75:     } else if (value == 7) {
 }
 [e $U 1095  ]
 [e :U 1093 ]
 [e $ ! == -> _value `i -> 7 `i 1096  ]
 {
-"75
-[; ;ecu1_sensor.c: 75:         index = 8;
-[e = _index -> -> 8 `i `uc ]
 "76
-[; ;ecu1_sensor.c: 76:     }
+[; ;ecu1_sensor.c: 76:         index = 8;
+[e = _index -> -> 8 `i `uc ]
+"77
+[; ;ecu1_sensor.c: 77:     }
 }
 [e :U 1096 ]
 [e :U 1095 ]
 [e :U 1092 ]
-"79
-[; ;ecu1_sensor.c: 79:     gear_arr[0] = gear[index][0];
-[e = *U + &U _gear_arr * -> -> -> 0 `i `ui `ux -> -> # *U &U _gear_arr `ui `ux -> *U + &U *U + &U _gear * -> _index `ux -> * -> # *U &U *U &U _gear `ui -> -> 3 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _gear * -> _index `ux -> * -> # *U &U *U &U _gear `ui -> -> 3 `i `ui `ux `ui `ux `uc ]
 "80
-[; ;ecu1_sensor.c: 80:     gear_arr[1] = gear[index][1];
-[e = *U + &U _gear_arr * -> -> -> 1 `i `ui `ux -> -> # *U &U _gear_arr `ui `ux -> *U + &U *U + &U _gear * -> _index `ux -> * -> # *U &U *U &U _gear `ui -> -> 3 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _gear * -> _index `ux -> * -> # *U &U *U &U _gear `ui -> -> 3 `i `ui `ux `ui `ux `uc ]
+[; ;ecu1_sensor.c: 80:     gear_arr[0] = gear[index][0];
+[e = *U + &U _gear_arr * -> -> -> 0 `i `ui `ux -> -> # *U &U _gear_arr `ui `ux -> *U + &U *U + &U _gear * -> _index `ux -> * -> # *U &U *U &U _gear `ui -> -> 3 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _gear * -> _index `ux -> * -> # *U &U *U &U _gear `ui -> -> 3 `i `ui `ux `ui `ux `uc ]
 "81
-[; ;ecu1_sensor.c: 81:     gear_arr[2] = '\0';
+[; ;ecu1_sensor.c: 81:     gear_arr[1] = gear[index][1];
+[e = *U + &U _gear_arr * -> -> -> 1 `i `ui `ux -> -> # *U &U _gear_arr `ui `ux -> *U + &U *U + &U _gear * -> _index `ux -> * -> # *U &U *U &U _gear `ui -> -> 3 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _gear * -> _index `ux -> * -> # *U &U *U &U _gear `ui -> -> 3 `i `ui `ux `ui `ux `uc ]
+"82
+[; ;ecu1_sensor.c: 82:     gear_arr[2] = '\0';
 [e = *U + &U _gear_arr * -> -> -> 2 `i `ui `ux -> -> # *U &U _gear_arr `ui `ux -> -> 0 `ui `uc ]
-"84
-[; ;ecu1_sensor.c: 84:     clcd_print(gear_arr, (0xC0 + (8)));
+"85
+[; ;ecu1_sensor.c: 85:     clcd_print(gear_arr, (0xC0 + (8)));
 [e ( _clcd_print (2 , -> &U _gear_arr `*Cuc -> + -> 192 `i -> 8 `i `uc ]
-"87
-[; ;ecu1_sensor.c: 87:     can_transmit(0x20, gear_arr, 2);
-[e ( _can_transmit (3 , , -> -> 32 `i `us -> &U _gear_arr `*Cuc -> -> 2 `i `uc ]
 "88
-[; ;ecu1_sensor.c: 88:     _delay((unsigned long)((80)*(20000000/4000.0)));
+[; ;ecu1_sensor.c: 88:     can_transmit(0x20, gear_arr, 2);
+[e ( _can_transmit (3 , , -> -> 32 `i `us -> &U _gear_arr `*Cuc -> -> 2 `i `uc ]
+"89
+[; ;ecu1_sensor.c: 89:     _delay((unsigned long)((80)*(20000000/4000.0)));
 [e ( __delay (1 -> * -> -> 80 `i `d / -> -> 20000000 `l `d .4000.0 `ul ]
-"91
-[; ;ecu1_sensor.c: 91:     can_receive(&gear_msg_id, gear_rec, &gear_len);
-[e ( _can_receive (3 , , &U _gear_msg_id &U _gear_rec &U _gear_len ]
-"92
-[; ;ecu1_sensor.c: 92:     gear_rec[2] = '\0';
-[e = *U + &U _gear_rec * -> -> -> 2 `i `ui `ux -> -> # *U &U _gear_rec `ui `ux -> -> 0 `ui `uc ]
-"95
-[; ;ecu1_sensor.c: 95:     clcd_print(gear_rec, (0xC0 + (12)));
-[e ( _clcd_print (2 , -> &U _gear_rec `*Cuc -> + -> 192 `i -> 12 `i `uc ]
-"99
-[; ;ecu1_sensor.c: 99:     return 0;
+"101
+[; ;ecu1_sensor.c: 101:     return 0;
 [e ) -> -> 0 `i `uc ]
 [e $UE 1089  ]
-"100
-[; ;ecu1_sensor.c: 100: }
+"102
+[; ;ecu1_sensor.c: 102: }
 [e :UE 1089 ]
 }

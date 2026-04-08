@@ -18106,15 +18106,7 @@ uint16_t get_speed() {
 
     can_transmit(0x10, speed_arr, 2);
     _delay((unsigned long)((80)*(20000000/4000.0)));
-
-
-    can_receive(&speed_msg_id, speed_rec, &speed_len);
-    speed_rec[2] = '\0';
-
-    clcd_print(speed_rec, (0xC0 + (0)));
-
-
-
+# 58 "ecu1_sensor.c"
     return speed;
 }
 
@@ -18147,15 +18139,6 @@ unsigned char get_gear_pos() {
 
     can_transmit(0x20, gear_arr, 2);
     _delay((unsigned long)((80)*(20000000/4000.0)));
-
-
-    can_receive(&gear_msg_id, gear_rec, &gear_len);
-    gear_rec[2] = '\0';
-
-
-    clcd_print(gear_rec, (0xC0 + (12)));
-
-
-
+# 101 "ecu1_sensor.c"
     return 0;
 }

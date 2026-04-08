@@ -47,10 +47,11 @@ uint16_t get_speed() {
     __delay_ms(80);
 
     // Receive speed from another ECU
-    can_receive(&speed_msg_id, speed_rec, &speed_len);
-    speed_rec[2] = '\0';
+//    can_receive(&speed_msg_id, speed_rec, &speed_len);
+    
+//    speed_rec[2] = '\0';
     // Display received speed
-    clcd_print(speed_rec, LINE2(0));
+//    clcd_print(speed_rec, LINE2(0));
     //    clcd_putch(speed_rec[0], LINE2(0));
     //    clcd_putch(speed_rec[1], LINE2(1));
 
@@ -88,11 +89,12 @@ unsigned char get_gear_pos() {
     __delay_ms(80);
 
     // Receive gear from another ECU
-    can_receive(&gear_msg_id, gear_rec, &gear_len);
-    gear_rec[2] = '\0';
+//    can_receive(&gear_msg_id, gear_rec, &gear_len);
+    
+//    gear_rec[2] = '\0';
 
     // Display received gear
-    clcd_print(gear_rec, LINE2(12));
+//    clcd_print(gear_rec, LINE2(12));
     //    clcd_putch(gear_rec[0], LINE2(12));
     //    clcd_putch(gear_rec[1], LINE2(13));
 

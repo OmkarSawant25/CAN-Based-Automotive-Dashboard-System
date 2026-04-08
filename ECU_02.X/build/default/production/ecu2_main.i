@@ -18101,8 +18101,8 @@ int main() {
 }
 
 void init_led() {
-    TRISB0 = 0;
-    TRISB1 = 0;
-    TRISB6 = 0;
-    TRISB7 = 0;
+    TRISBbits.TRISB0 = 0;
+    TRISBbits.TRISB1 = 0;
+    TRISBbits.TRISB6 = 0;
+    TRISBbits.TRISB7 = 0;
 }

@@ -18114,7 +18114,7 @@ uint16_t get_rpm(void) {
 
     _delay((unsigned long)((80)*(20000000/4000.0)));
 
-    can_receive(&rpm_msg_id, rpm_rec, &rpm_len);
+
 
 
     ssd[0] = digit[rpm_rec[0] - '0'];
@@ -18122,10 +18122,7 @@ uint16_t get_rpm(void) {
     ssd[2] = digit[rpm_rec[2] - '0'];
     ssd[3] = digit[rpm_rec[3] - '0'];
 
-
-
     display(ssd);
-
 
     return rpm;
 }
@@ -18145,46 +18142,28 @@ IndicatorStatus process_indicator() {
     } else if (key == 0x0B) {
         status = e_ind_right;
     }
-# 102 "ecu2_sensor.c"
-    ind_tx[0] = (unsigned char) status;
 
-    can_transmit(0x50, ind_tx, 1);
-    _delay((unsigned long)((50)*(20000000/4000.0)));
-    can_receive(&ind_msg_id, ind_rx, &ind_len);
-
-    status_rx = (IndicatorStatus) ind_rx[0];
-
-    if (status_rx == e_ind_left) {
-        if (count_r++ < 5) {
-            PORTBbits.RB0 = 1;
-            PORTBbits.RB1 = 1;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB7 = 0;
-        }
-        else {
-            count_r = 0;
-            PORTBbits.RB0 = 0;
-            PORTBbits.RB1 = 0;
-        }
-
-    } else if (status_rx == e_ind_off) {
+    if (status == e_ind_left) {
+        PORTBbits.RB0 = 1;
+        PORTBbits.RB1 = 1;
+        PORTBbits.RB6 = 0;
+        PORTBbits.RB7 = 0;
+    } else if (status == e_ind_off) {
         PORTBbits.RB0 = 0;
         PORTBbits.RB1 = 0;
         PORTBbits.RB6 = 0;
         PORTBbits.RB7 = 0;
-    } else if (status_rx == e_ind_right) {
-        if (count_l++ < 5) {
-            PORTBbits.RB0 = 0;
-            PORTBbits.RB1 = 0;
-            PORTBbits.RB6 = 1;
-            PORTBbits.RB7 = 1;
-        }
-        else {
-            count_l = 0;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB7 = 0;
-        }
+    } else if (status == e_ind_right) {
+        PORTBbits.RB0 = 0;
+        PORTBbits.RB1 = 0;
+        PORTBbits.RB6 = 1;
+        PORTBbits.RB7 = 1;
     }
-# 158 "ecu2_sensor.c"
+
+    ind_tx[0] = (unsigned char) status;
+
+    can_transmit(0x50, ind_tx, 1);
+    _delay((unsigned long)((80)*(20000000/4000.0)));
+# 156 "ecu2_sensor.c"
     return status;
 }

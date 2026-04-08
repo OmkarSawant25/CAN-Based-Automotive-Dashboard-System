@@ -85,8 +85,6 @@ e_can_op_mode_config 128
 [v _set_msg_id_std set_msg_id_std `(v  1 s 1 set_msg_id_std ]
 "64
 [v _can_transmit can_transmit `(v  1 e 1 0 ]
-"89
-[v _can_receive can_receive `(v  1 e 1 0 ]
 "4 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_01.X\clcd.c
 [v _clcd_write clcd_write `(v  1 e 1 0 ]
 "27
@@ -101,7 +99,7 @@ e_can_op_mode_config 128
 [v _main main `(i  1 e 2 0 ]
 "30 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_01.X\ecu1_sensor.c
 [v _get_speed get_speed `(us  1 e 2 0 ]
-"60
+"61
 [v _get_gear_pos get_gear_pos `(uc  1 e 1 0 ]
 "17 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_01.X\matrix_keypad.c
 [v _init_matrix_keypad init_matrix_keypad `(v  1 e 1 0 ]
@@ -194,7 +192,7 @@ e_can_op_mode_config 128
 [v _ECANCON ECANCON `VEuc  1 e 1 @3959 ]
 "25715
 [v _PORTB PORTB `VEuc  1 e 1 @3969 ]
-[s S345 . 1 `uc 1 RB0 1 0 :1:0 
+[s S343 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -204,7 +202,7 @@ e_can_op_mode_config 128
 `uc 1 RB7 1 0 :1:7 
 ]
 "25759
-[s S354 . 1 `uc 1 INT0 1 0 :1:0 
+[s S352 . 1 `uc 1 INT0 1 0 :1:0 
 `uc 1 INT1 1 0 :1:1 
 `uc 1 INT2 1 0 :1:2 
 `uc 1 CANRX 1 0 :1:3 
@@ -213,7 +211,7 @@ e_can_op_mode_config 128
 `uc 1 KBI2 1 0 :1:6 
 `uc 1 KBI3 1 0 :1:7 
 ]
-[s S363 . 1 `uc 1 AN10 1 0 :1:0 
+[s S361 . 1 `uc 1 AN10 1 0 :1:0 
 `uc 1 AN8 1 0 :1:1 
 `uc 1 CANTX 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -222,13 +220,13 @@ e_can_op_mode_config 128
 `uc 1 PGC 1 0 :1:6 
 `uc 1 PGD 1 0 :1:7 
 ]
-[s S372 . 1 `uc 1 FLT0 1 0 :1:0 
+[s S370 . 1 `uc 1 FLT0 1 0 :1:0 
 ]
-[s S374 . 1 `uc 1 . 1 0 :3:0 
+[s S372 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP2_PA2 1 0 :1:3 
 ]
-[u S377 . 1 `S345 1 . 1 0 `S354 1 . 1 0 `S363 1 . 1 0 `S372 1 . 1 0 `S374 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES377  1 e 1 @3969 ]
+[u S375 . 1 `S343 1 . 1 0 `S352 1 . 1 0 `S361 1 . 1 0 `S370 1 . 1 0 `S372 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES375  1 e 1 @3969 ]
 "25889
 [v _PORTC PORTC `VEuc  1 e 1 @3970 ]
 "26059
@@ -251,11 +249,11 @@ e_can_op_mode_config 128
 [v _ADRESL ADRESL `VEuc  1 e 1 @4035 ]
 "30407
 [v _ADRESH ADRESH `VEuc  1 e 1 @4036 ]
-[s S305 . 1 `uc 1 . 1 0 :7:0 
+[s S303 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 NOT_RBPU 1 0 :1:7 
 ]
 "32106
-[s S308 . 1 `uc 1 RBIP 1 0 :1:0 
+[s S306 . 1 `uc 1 RBIP 1 0 :1:0 
 `uc 1 . 1 0 :1:1 
 `uc 1 TMR0IP 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -264,13 +262,13 @@ e_can_op_mode_config 128
 `uc 1 INTEDG0 1 0 :1:6 
 `uc 1 nRBPU 1 0 :1:7 
 ]
-[s S317 . 1 `uc 1 . 1 0 :2:0 
+[s S315 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 T0IP 1 0 :1:2 
 `uc 1 . 1 0 :4:3 
 `uc 1 RBPU 1 0 :1:7 
 ]
-[u S322 . 1 `S305 1 . 1 0 `S308 1 . 1 0 `S317 1 . 1 0 ]
-[v _INTCON2bits INTCON2bits `VES322  1 e 1 @4081 ]
+[u S320 . 1 `S303 1 . 1 0 `S306 1 . 1 0 `S315 1 . 1 0 ]
+[v _INTCON2bits INTCON2bits `VES320  1 e 1 @4081 ]
 "32495
 [v _ACQT0 ACQT0 `VEb  1 e 0 @32259 ]
 "32498
@@ -353,18 +351,6 @@ e_can_op_mode_config 128
 [v _key key `uc  1 e 1 0 ]
 "16
 [v _value value `uc  1 e 1 0 ]
-"18
-[v _speed_rec speed_rec `[3]uc  1 e 3 0 ]
-"19
-[v _speed_len speed_len `uc  1 e 1 0 ]
-"20
-[v _speed_msg_id speed_msg_id `us  1 e 2 0 ]
-"22
-[v _gear_rec gear_rec `[3]uc  1 e 3 0 ]
-"23
-[v _gear_len gear_len `uc  1 e 1 0 ]
-"24
-[v _gear_msg_id gear_msg_id `us  1 e 2 0 ]
 "26
 [v _index index `uc  1 s 1 index ]
 "28
@@ -404,7 +390,7 @@ e_can_op_mode_config 128
 "30 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_01.X\ecu1_sensor.c
 [v _get_speed get_speed `(us  1 e 2 0 ]
 {
-"58
+"59
 } 0
 "43 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_01.X\adc.c
 [v _read_adc read_adc `(us  1 e 2 0 ]
@@ -495,10 +481,10 @@ e_can_op_mode_config 128
 [v ___fldiv@a a `d  1 p 4 18 ]
 "185
 } 0
-"60 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_01.X\ecu1_sensor.c
+"61 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_01.X\ecu1_sensor.c
 [v _get_gear_pos get_gear_pos `(uc  1 e 1 0 ]
 {
-"100
+"102
 } 0
 "57 D:\MC\Projects\CAN-Based Automotive Dashboard System\ECU_01.X\matrix_keypad.c
 [v _triggering_type triggering_type `(uc  1 e 1 0 ]
@@ -549,24 +535,4 @@ e_can_op_mode_config 128
 {
 [v set_msg_id_std@id id `ui  1 p 2 0 ]
 "60
-} 0
-"89
-[v _can_receive can_receive `(v  1 e 1 0 ]
-{
-"100
-[v can_receive@i i `i  1 a 2 16 ]
-"90
-[v can_receive@ptr ptr `*.39uc  1 a 2 14 ]
-"89
-[v can_receive@msg_id msg_id `*.30us  1 p 1 8 ]
-[v can_receive@data data `*.30uc  1 p 1 9 ]
-[v can_receive@len len `*.30uc  1 p 1 10 ]
-"110
-} 0
-"50
-[v _get_msg_id_std get_msg_id_std `(us  1 s 2 get_msg_id_std ]
-{
-"51
-[v get_msg_id_std@id id `us  1 a 2 6 ]
-"54
 } 0

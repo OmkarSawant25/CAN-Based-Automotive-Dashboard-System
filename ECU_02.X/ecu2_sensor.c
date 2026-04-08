@@ -50,7 +50,7 @@ uint16_t get_rpm(void) {
 
     __delay_ms(80);
 
-    can_receive(&rpm_msg_id, rpm_rec, &rpm_len);
+    //    can_receive(&rpm_msg_id, rpm_rec, &rpm_len);
 
     //    if (rpm_len >= 4) {
     ssd[0] = digit[rpm_rec[0] - '0'];
@@ -58,10 +58,7 @@ uint16_t get_rpm(void) {
     ssd[2] = digit[rpm_rec[2] - '0'];
     ssd[3] = digit[rpm_rec[3] - '0'];
 
-    //    for (int i = 0; i < 100; i++)
-
     display(ssd);
-    //    }
 
     return rpm;
 }
@@ -82,62 +79,63 @@ IndicatorStatus process_indicator() {
         status = e_ind_right;
     }
 
-    //    if (status == e_ind_left) {
-    //        PORTBbits.RB0 = 1;
-    //        PORTBbits.RB1 = 1;
-    //        PORTBbits.RB6 = 0;
-    //        PORTBbits.RB7 = 0;
-    //    } else if (status == e_ind_off) {
-    //        PORTBbits.RB0 = 0;
-    //        PORTBbits.RB1 = 0;
-    //        PORTBbits.RB6 = 0;
-    //        PORTBbits.RB7 = 0;
-    //    } else if (status == e_ind_right) {
-    //        PORTBbits.RB0 = 0;
-    //        PORTBbits.RB1 = 0;
-    //        PORTBbits.RB6 = 1;
-    //        PORTBbits.RB7 = 1;
-    //    }
-
-    ind_tx[0] = (unsigned char) status;
-
-    can_transmit(INDICATOR_MSG_ID, ind_tx, 1);
-    __delay_ms(50);
-    can_receive(&ind_msg_id, ind_rx, &ind_len);
-
-    status_rx = (IndicatorStatus) ind_rx[0];
-
-    if (status_rx == e_ind_left) {
-        if (count_r++ < 5) {
-            PORTBbits.RB0 = 1;
-            PORTBbits.RB1 = 1;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB7 = 0;
-        } 
-        else {
-            count_r = 0;
-            PORTBbits.RB0 = 0;
-            PORTBbits.RB1 = 0;
-        }
-
-    } else if (status_rx == e_ind_off) {
+    if (status == e_ind_left) {
+        PORTBbits.RB0 = 1;
+        PORTBbits.RB1 = 1;
+        PORTBbits.RB6 = 0;
+        PORTBbits.RB7 = 0;
+    } else if (status == e_ind_off) {
         PORTBbits.RB0 = 0;
         PORTBbits.RB1 = 0;
         PORTBbits.RB6 = 0;
         PORTBbits.RB7 = 0;
-    } else if (status_rx == e_ind_right) {
-        if (count_l++ < 5) {
-            PORTBbits.RB0 = 0;
-            PORTBbits.RB1 = 0;
-            PORTBbits.RB6 = 1;
-            PORTBbits.RB7 = 1;
-        } 
-        else {
-            count_l = 0;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB7 = 0;
-        }
+    } else if (status == e_ind_right) {
+        PORTBbits.RB0 = 0;
+        PORTBbits.RB1 = 0;
+        PORTBbits.RB6 = 1;
+        PORTBbits.RB7 = 1;
     }
+
+    ind_tx[0] = (unsigned char) status;
+
+    can_transmit(INDICATOR_MSG_ID, ind_tx, 1);
+    __delay_ms(80);
+
+    //    can_receive(&ind_msg_id, ind_rx, &ind_len);
+
+    //    status_rx = (IndicatorStatus) ind_rx[0];
+    //
+    //    if (status_rx == e_ind_left) {
+    //        if (count_r++ < 5) {
+    //            PORTBbits.RB0 = 1;
+    //            PORTBbits.RB1 = 1;
+    //            PORTBbits.RB6 = 0;
+    //            PORTBbits.RB7 = 0;
+    //        } 
+    //        else {
+    //            count_r = 0;
+    //            PORTBbits.RB0 = 0;
+    //            PORTBbits.RB1 = 0;
+    //        }
+    //
+    //    } else if (status_rx == e_ind_off) {
+    //        PORTBbits.RB0 = 0;
+    //        PORTBbits.RB1 = 0;
+    //        PORTBbits.RB6 = 0;
+    //        PORTBbits.RB7 = 0;
+    //    } else if (status_rx == e_ind_right) {
+    //        if (count_l++ < 5) {
+    //            PORTBbits.RB0 = 0;
+    //            PORTBbits.RB1 = 0;
+    //            PORTBbits.RB6 = 1;
+    //            PORTBbits.RB7 = 1;
+    //        } 
+    //        else {
+    //            count_l = 0;
+    //            PORTBbits.RB6 = 0;
+    //            PORTBbits.RB7 = 0;
+    //        }
+    //    }
 
     //        if (key == SWITCH1) {
     //            PORTBbits.RB0 = 1;

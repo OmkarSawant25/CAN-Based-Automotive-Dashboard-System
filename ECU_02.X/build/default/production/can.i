@@ -18050,7 +18050,7 @@ void init_can(void) {
 
     RXFCON0 = 0x00;
 
-    { CANCON &= 0x1F; CANCON |= e_can_op_mode_loop; };
+    { CANCON &= 0x1F; CANCON |= e_can_op_mode_normal; };
 
 
     RXB0CON = 0x00;
