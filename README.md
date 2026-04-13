@@ -188,5 +188,5 @@ This project helped in understanding:
 
 ## Author
 
-**Omkar Ashok Sawant**
-Embedded Systems | Automotive Electronics | CAN Communication
+**Omkar Ashok Sawant**  
+Embedded Systems Engineer | Automotive Firmware | CAN Communication
